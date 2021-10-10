@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-08 21:34+0000\n"
+"POT-Creation-Date: 2021-10-10 18:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,8 @@ msgstr[1] "%d urządzenia zostały pomyślnie oznaczone jako aktywne."
 msgid "Hexadecimal representation of colour, for example #73a6ff."
 msgstr "Szesnastkowa reprezentacja koloru, np. #73a6ff."
 
-#: management/models.py:24 management/models.py:25
+#: management/models.py:24 management/models.py:25 management/models.py:112
+#: management/models.py:113
 msgid "This field is mandatory."
 msgstr "To pole jest obowiązkowe."
 
@@ -80,24 +81,34 @@ msgid "ToBin"
 msgstr "Do kosza"
 
 #: management/models.py:64
-msgid "Unknown"
-msgstr "Nieznane urządzenie"
+msgid "autodetect"
+msgstr "Auto wykrywanie"
 
 #: management/models.py:65
-msgid "CiscoIOS"
+msgid "cisco_ios"
 msgstr "Cisco IOS"
 
 #: management/models.py:66
-msgid "CiscoIOSXR"
+msgid "cisco_xr"
 msgstr "Cisco IOSXR"
 
 #: management/models.py:67
-msgid "CiscoIOSXE"
+msgid "cisco_xe"
 msgstr "Cisco IOSXE"
 
 #: management/models.py:68
-msgid "CiscoNXOS"
+msgid "cisco_nxos"
 msgstr "Cisco NXOS"
+
+#: management/models.py:114
+#, fuzzy
+#| msgid "This field is mandatory."
+msgid "This field must be unique."
+msgstr "To pole jest obowiązkowe."
+
+#: management/models.py:116
+msgid "Enter a valid IP address or hostname."
+msgstr ""
 
 #: management/templates/management/base.html:30
 #: management/templates/management/base.html:93
@@ -108,7 +119,7 @@ msgstr "Tablica"
 msgid "Management"
 msgstr "Zarządzanie"
 
-#: management/templates/management/base.html:39
+#: management/templates/management/base.html:39 management/views.py:32
 msgid "Devices"
 msgstr "Urządzenia"
 
@@ -145,35 +156,61 @@ msgid "Administrators"
 msgstr "Administratorzy"
 
 #: management/templates/management/base.html:67
-#: management/templates/management/base.html:112
+#: management/templates/management/base.html:113
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: management/templates/management/base.html:111
+#: management/templates/management/base.html:112
 msgid "Profile"
 msgstr "Profil użytkownika"
 
-#: management/templates/management/base.html:113
+#: management/templates/management/base.html:114
 msgid "About"
 msgstr "Informacje o stronie"
 
-#: management/templates/management/base.html:114
+#: management/templates/management/base.html:115
 msgid "Logout"
 msgstr "Wyloguj się"
 
-#: management/templates/management/base.html:121
+#: management/templates/management/base.html:122
 msgid "NoUser"
 msgstr "Nie zalogowano się"
 
-#: management/templates/management/base.html:124
+#: management/templates/management/base.html:125
 msgid "LogIn"
 msgstr "Zaloguj się"
 
-#: management/templates/management/devices_search.html:87
+#: management/templates/management/devices_search.html:29
+#, fuzzy
+#| msgid "Active"
+msgid "ActiveSSH"
+msgstr "Aktywny"
+
+#: management/templates/management/devices_search.html:33
+#, fuzzy
+#| msgid "Active"
+msgid "ActiveHTTPS"
+msgstr "Aktywny"
+
+#: management/templates/management/devices_search.html:37
+#, fuzzy
+#| msgid "Active"
+msgid "ActivePING"
+msgstr "Aktywny"
+
+#: management/templates/management/devices_search.html:41
+msgid "Certificate"
+msgstr ""
+
+#: management/templates/management/devices_search.html:96
+msgid "More"
+msgstr ""
+
+#: management/templates/management/devices_search.html:105
 msgid "DeviceType"
 msgstr "Urządzenia"
 
-#: management/templates/management/devices_search.html:90
+#: management/templates/management/devices_search.html:108
 msgid "Credentials"
 msgstr "Dane uwierzytelniające"
 
@@ -184,6 +221,21 @@ msgid ""
 msgstr ""
 "Podaj właściwy kolor w notacji szesnastkowej. Wartość ta może zawierać tylko "
 "liczby szesnastkowe poprzedzone znakiem #."
+
+#~ msgid "Unknown"
+#~ msgstr "Nieznane urządzenie"
+
+#~ msgid "CiscoIOS"
+#~ msgstr "Cisco IOS"
+
+#~ msgid "CiscoIOSXR"
+#~ msgstr "Cisco IOSXR"
+
+#~ msgid "CiscoIOSXE"
+#~ msgstr "Cisco IOSXE"
+
+#~ msgid "CiscoNXOS"
+#~ msgstr "Cisco NXOS"
 
 #~ msgid "Languages"
 #~ msgstr "Języki"

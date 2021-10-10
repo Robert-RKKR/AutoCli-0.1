@@ -60,19 +60,19 @@
                         <!-- Box activity -->
                         <div class="d-flex">
                             <!-- SSH status -->
-                            {% if result.ssh_status == true %}
+                            {% if result.ssh_status == True %}
                                 <div class="ball ball-active" aria-label="SSH"></div>
                             {% else %}
                                 <div class="ball ball-inactive" aria-label="SSH"></div>
                             {% endif %}
                             <!-- HTTPS status -->
-                            {% if result.https_status == true %}
+                            {% if result.https_status == True %}
                             <div class="ball ball-active" aria-label="HTTPS"></div>
                             {% else %}
                             <div class="ball ball-inactive" aria-label="HTTPS"></div>
                             {% endif %}
                             <!-- PING status -->
-                            {% if result.ping_status == true %}
+                            {% if result.ping_status == True %}
                             <div class="ball ball-active" aria-label="Ping"></div>
                             {% else %}
                             <div class="ball ball-inactive" aria-label="Ping"></div>

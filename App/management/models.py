@@ -17,7 +17,8 @@ class Tag(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
     color = models.CharField(
         max_length=64,
-        blank=False,
+        blank=True,
+        null=True,
         validators=[color_validator],
         help_text=_('Hexadecimal representation of colour, for example #73a6ff.'),
         error_messages={
@@ -37,6 +38,8 @@ class Credential(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
     username = models.CharField(max_length=64, blank=False)
     password = models.CharField(max_length=64, null=True)
+    secret = models.CharField(max_length=64, null=True, blank=True)
+    token = models.CharField(max_length=128, null=True, blank=True)
     description = models.CharField(max_length=512, default="Device credential description")
 
     def __str__(self) -> str:
@@ -47,6 +50,7 @@ class Credential(models.Model):
 class TagDeviceRelation(models.Model):
     device = models.ForeignKey('Device', on_delete=models.CASCADE)
     tag = models.ForeignKey('Tag', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = [['device', 'tag']]
@@ -61,11 +65,11 @@ class Device(models.Model):
         (2, _('ToBin')),
     )
     DEVICE_TYPE = (
-        (0, _('Unknown')),
-        (1, _('CiscoIOS')),
-        (2, _('CiscoIOSXR')),
-        (3, _('CiscoIOSXE')),
-        (4, _('CiscoNXOS')),
+        (0, _('autodetect')),
+        (1, _('cisco_ios')),
+        (2, _('cisco_xr')),
+        (3, _('cisco_xe')),
+        (4, _('cisco_nxos')),
     )
     ICO = (
         (0, (f'{PATH}router.svg')),
@@ -116,12 +120,16 @@ class Device(models.Model):
         help_text=_('Enter a valid IP address or hostname.'),
     )
     device_type = models.IntegerField(choices=DEVICE_TYPE, default=0)
-    credential = models.ForeignKey(Credential, on_delete=models.PROTECT, null=True, blank=True)
     ico = models.IntegerField(choices=ICO, default=0)
     ssh_port = models.IntegerField(default=22)
     https_port = models.IntegerField(default=443)
-    certificate = models.BooleanField(default=False)
     description = models.CharField(max_length=512, default="Device description")
+
+    # Security and credentials:
+    credential = models.ForeignKey(Credential, on_delete=models.PROTECT, null=True, blank=True)
+    secret = models.CharField(max_length=64, null=True, blank=True)
+    token = models.CharField(max_length=128, null=True, blank=True)
+    certificate = models.BooleanField(default=False)
 
     # Device status:
     ssh_status = models.BooleanField(default=False)

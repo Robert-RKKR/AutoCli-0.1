@@ -36,8 +36,10 @@ def devices_search(request):
     # GET method:
     if request.method == 'GET':
         return render(request, 'management/devices_search.html', data)
+    
     # POST method:
     elif request.method == 'POST':
+        
         # Collect data from form:
         name = request.POST.get('name')
         status = request.POST.get('active')
@@ -81,8 +83,8 @@ def device(request, id):
         'device': device,
     }
 
-    from .connection.check import check_ping
-    check_ping(device.hostname)
+    from .connection.connection_manager import check_ssh
+    data['output'] = check_ssh(device).status
     
     # GET method:
     return render(request, 'management/device.html', data)

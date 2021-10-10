@@ -31,9 +31,13 @@ class DeviceAdmin(admin.ModelAdmin):
         'name', 'hostname',
     )
     fields = (
-        'status', ('name', 'hostname'), ('device_type',
-        'ico', 'credential'), ('ssh_port',
-        'https_port'), 'certificate', 'description',
+        'status',
+        ('name', 'hostname'),
+        ('device_type', 'ico'),
+        ('ssh_port', 'https_port'),
+        ('credential', 'secret', 'token'),
+        'certificate',
+        'description',
     )
 
     @admin.action(description='Make device nonactive')
@@ -80,7 +84,7 @@ class ColorAdmin(admin.ModelAdmin):
 @admin.register(TagDeviceRelation)
 class GroupDeviceRelationAdmin(admin.ModelAdmin):
     list_display = (
-        'id', 'device', 'tag',
+        'id', 'device', 'tag', 'created',
     )
     search_fields = (
         'device', 'tag',
