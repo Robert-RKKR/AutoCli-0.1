@@ -1,0 +1,149 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'management/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="{% static 'management/css/main.css' %}" rel="stylesheet" />
+    <title>{{ web.title }}</title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="primary-bg" id="sidebar-wrapper">
+          <div>
+            <div class="sidebar-heading text-center py-4 primary-color fs-4 fw-bold text-uppercase border-bottom">
+              <i class="fas fa-user-secret me-2"></i>AutoCli
+            </div>
+            <nav class="list-group list-group-flush my-3">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active">
+                    <i class="fas fa-paperclip me-2"></i>
+                    <span>{% translate "Dashboard" %}</span>
+                  </a>
+                </li>
+                <li class="nav-item" id="sidebar-dropdown">
+                  <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active dropdown-toggle">
+                    <i class="fas fa-power-off me-2"></i>
+                    <span>{% translate "Management" %}</span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/{{ LANGUAGE_CODE }}/management/devices_search">{% translate "Devices" %}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">{% translate "Groups" %}</a></li>
+                    <li><a class="dropdown-item" href="#">{% translate "Colors" %}</a></li>
+                    <li><a class="dropdown-item" href="#">{% translate "Icons" %}</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" id="sidebar-dropdown">
+                  <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active dropdown-toggle">
+                    <i class="fas fa-power-off me-2"></i>
+                    <span>{% translate "Automation" %}</span>
+                    <span class="badge badge-warning">3</span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">{% translate "Templates" %}</a></li>
+                    <li><a class="dropdown-item" href="#">{% translate "Policies" %}</a></li>
+                  </ul>
+                </li>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active">
+                  <i class="fas fa-paperclip me-2"></i>
+                  <span>{% translate "Articles" %}</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active">
+                  <i class="fas fa-comment-dots me-2"></i>
+                  <span>{% translate "Administrators" %}</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-transparent second-color active">
+                  <i class="fas fa-comment-dots me-2"></i>
+                  <span>{% translate "Settings" %}</span>
+                </a>
+              </ul>
+            </nav>
+          </div>
+          
+          <div id="bottom-menu">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for lang in languages %}
+              <a class="d-flex align-items-center second-color text-decoration-none" href="/{{ lang.code }}{{ url }}">
+                {{ lang.code }}
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            
+          <!-- Top section -->
+          <div class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                    
+            <div class="d-flex align-items-center dark-gray-color">
+              <i class="fas fa-align-left dark-gray-color fs-4 me-3" id="menu-toggle"></i>
+              <!-- <h2 class="fs-2 m-0">{% translate "Dashboard" %}</h2> -->
+              <h2 class="fs-2 m-0">{{ header }}</h2>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dark-gray-color fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-user me-2"></i>
+                      <span>{{ user.get_username }}</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item primary-font" href="#">{% translate "Profile" %}</a></li>
+                      <li><a class="dropdown-item primary-font" href="#">{% translate "Settings" %}</a></li>
+                      <li><a class="dropdown-item primary-font" href="#">{% translate "About" %}</a></li>
+                      <li><a class="dropdown-item primary-font" href="#">{% translate "Logout" %}</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dark-gray-color fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-user me-2"></i>
+                      <span>{% translate "NoUser" %}</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item primary-font" href="#">{% translate "LogIn" %}</a></li>
+                    </ul>
+                  </li>
+                {% endif %}
+              </ul>
+              
+                
+            </div>
+          </div>
+
+          <!-- Page Content -->
+          <div id="page-content">
+          
+            {% block content %}{% endblock content %}
+
+          </div>
+        </div>
+    </div>
+
+    <script src="{% static 'management/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'management/js/main.js' %}"></script>
+	
+</body>
+
+</html>

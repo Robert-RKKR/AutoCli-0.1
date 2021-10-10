@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-08 21:34+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: AutoCli/settings.py:145
+msgid "English"
+msgstr "Englisch"
+
+#: AutoCli/settings.py:146
+msgid "German"
+msgstr "Deutsch"
+
+#: AutoCli/settings.py:147
+msgid "Polish"
+msgstr "Polnisch"
+
+#: AutoCli/urls.py:25
+msgid "admin/"
+msgstr ""
+
+#: management/admin.py:44
+#, python-format
+msgid "%d device was successfully marked as nonactive."
+msgid_plural "%d devices were successfully marked as nonactive."
+msgstr[0] "%d Gerät wurde erfolgreich als inaktiv markiert."
+msgstr[1] "%d Geräte wurden erfolgreich als nicht aktiv markiert."
+
+#: management/admin.py:54
+#, python-format
+msgid "%d device was successfully marked as active."
+msgid_plural "%d devices were successfully marked as active."
+msgstr[0] "%d Gerät wurde erfolgreich als aktiv markiert."
+msgstr[1] "%d Geräte wurden erfolgreich als aktiv markiert."
+
+#: management/models.py:22
+msgid "Hexadecimal representation of colour, for example #73a6ff."
+msgstr "Hexadezimale Darstellung der Farbe, zum Beispiel #73a6ff."
+
+#: management/models.py:24 management/models.py:25
+msgid "This field is mandatory."
+msgstr "Dieses Feld ist obligatorisch."
+
+#: management/models.py:26
+msgid ""
+"Enter the correct colour value. It must be a 3/6 character hexadecimal "
+"number with # on begining"
+msgstr ""
+"Geben Sie den richtigen Farbwert ein. Es muss sich um eine 3/6-stellige "
+"Hexadezimalzahl mit # am Anfang handeln."
+
+#: management/models.py:59
+msgid "Nonactive"
+msgstr "Nicht aktiv"
+
+#: management/models.py:60
+#: management/templates/management/devices_search.html:25
+msgid "Active"
+msgstr "Aktiv"
+
+#: management/models.py:61
+msgid "ToBin"
+msgstr "Nach Behälter"
+
+#: management/models.py:64
+msgid "Unknown"
+msgstr "Unbekanntes Gerät"
+
+#: management/models.py:65
+msgid "CiscoIOS"
+msgstr "Cisco IOS"
+
+#: management/models.py:66
+msgid "CiscoIOSXR"
+msgstr "Cisco IOSXR"
+
+#: management/models.py:67
+msgid "CiscoIOSXE"
+msgstr "Cisco IOSXE"
+
+#: management/models.py:68
+msgid "CiscoNXOS"
+msgstr "Cisco NXOS"
+
+#: management/templates/management/base.html:30
+#: management/templates/management/base.html:93
+msgid "Dashboard"
+msgstr "Armaturenbrett"
+
+#: management/templates/management/base.html:36
+msgid "Management"
+msgstr "Verwaltung"
+
+#: management/templates/management/base.html:39
+msgid "Devices"
+msgstr "Geräte"
+
+#: management/templates/management/base.html:41
+msgid "Groups"
+msgstr "Gruppen"
+
+#: management/templates/management/base.html:42
+msgid "Colors"
+msgstr "Farben"
+
+#: management/templates/management/base.html:43
+msgid "Icons"
+msgstr "Symbole"
+
+#: management/templates/management/base.html:49
+msgid "Automation"
+msgstr "Automatisierung"
+
+#: management/templates/management/base.html:53
+msgid "Templates"
+msgstr "Vorlagen"
+
+#: management/templates/management/base.html:54
+msgid "Policies"
+msgstr "Policen"
+
+#: management/templates/management/base.html:59
+msgid "Articles"
+msgstr "Artikel"
+
+#: management/templates/management/base.html:63
+msgid "Administrators"
+msgstr "Verwalter"
+
+#: management/templates/management/base.html:67
+#: management/templates/management/base.html:112
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: management/templates/management/base.html:111
+msgid "Profile"
+msgstr "Benutzerprofil"
+
+#: management/templates/management/base.html:113
+msgid "About"
+msgstr "Über die Website"
+
+#: management/templates/management/base.html:114
+msgid "Logout"
+msgstr "Abmelden"
+
+#: management/templates/management/base.html:121
+msgid "NoUser"
+msgstr "Nicht angemeldet"
+
+#: management/templates/management/base.html:124
+msgid "LogIn"
+msgstr "Angemeldet"
+
+#: management/templates/management/devices_search.html:87
+msgid "DeviceType"
+msgstr "Geräte"
+
+#: management/templates/management/devices_search.html:90
+msgid "Credentials"
+msgstr "Berechtigungsnachweise"
+
+#: management/validators.py:14
+msgid ""
+"Enter the correct colour in hexadecimal notation. This value can only "
+"contain hexadecimal numbers preceded by the # sign."
+msgstr ""
+"Geben Sie die richtige Farbe in hexadezimaler Schreibweise ein. Dieser Wert "
+"kann nur hexadezimale Zahlen enthalten, denen das Zeichen # vorangestellt "
+"ist."
+
+#~ msgid "Languages"
+#~ msgstr "Sprachen"

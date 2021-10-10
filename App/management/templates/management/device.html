@@ -1,0 +1,15 @@
+{% extends "management/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <!-- Search panel with additional options -->
+    <div class="px-4">
+
+        <h3 class="primary-font">{{ device.get_device_type_display }}</h3>
+        {{ ping }}
+        
+    </div>
+
+
+{% endblock %}
