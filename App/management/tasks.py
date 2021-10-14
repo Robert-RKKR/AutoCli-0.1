@@ -18,20 +18,66 @@ def task_simple(self, id):
     self.update_state(state='Starting')
 
     restcon = RestCon(device)
-    output = restcon.get('restconf/data/Cisco-IOS-XE-native:native/hostname')
-
-    if isinstance(output, dict):
-        for row in output:
-            device.secret = str(output[row])
-            device.save()
+    output = restcon.get('restconf')
 
     if restcon.status is True:
         device.https_status = True
+        device.ssh_status = True
+        device.ping_status = True
+        device.save()
+    else:
+        device.https_status = False
+        device.ssh_status = False
+        device.ping_status = False
         device.save()
 
     self.update_state(state='Ending')
 
     return output
+
+@shared_task
+def test_update_all():
+    devices = Device.objects.all()
+
+    for device in devices:
+        task_simple.delay(device.id)
+
+
+@shared_task(bind=True, track_started=True)
+def update_all(self):
+
+    devices = Device.objects.all()
+
+    self.update_state(state='Starting')
+
+    for device in devices:
+        restcon = RestCon(device)
+        output = restcon.get('restconf')
+
+        if restcon.status is True:
+            device.https_status = True
+            device.ssh_status = True
+            device.ping_status = True
+            device.save()
+        else:
+            device.https_status = False
+            device.ssh_status = False
+            device.ping_status = False
+            device.save()
+
+
+
+    self.update_state(state='Ending')
+
+
+    """devices = Device.objects.all()
+
+    self.update_state(state='Starting')
+
+    for device in devices:
+        task_simple.delay(device.id)
+
+    self.update_state(state='Ending')"""
 
 
 class ConnectionManager:

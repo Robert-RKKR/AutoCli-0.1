@@ -87,6 +87,7 @@ def device(request, id):
     from .tasks import task_simple
     data['output'] = task_simple.delay(id)
     #data['output'] = task_simple.apply_async((id,), countdown=5)
+    #data['output'] = update_all.delay()
 
     """from .tasks import task_simple
     data['output'] = task_simple.delay(id)"""
