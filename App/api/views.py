@@ -18,6 +18,11 @@ class DeviceAllAPI(generics.ListAPIView):
     queryset = Device.active.all().order_by('id')
     serializer_class = DeviceGetSerializer
 
+class DeviceOneAPI(generics.RetrieveAPIView):
+    lookup_field = 'id'
+    queryset = Device.objects.all()
+    serializer_class = DeviceGetSerializer
+
 class DeviceAddAPI(generics.CreateAPIView):
     queryset = Device.objects.all()
     serializer_class = DevicePostSerializer

@@ -4,13 +4,13 @@ import json
 
 # Application Import:
 from logger.logger import Logger
-from ..models import Device
+from management.models import Device
 
 
 class RestCon:
     
     # Logger class initiation:
-    logger = Logger('NetCon')
+    logger = Logger('RestCon')
 
     def __init__(self, device: Device) -> None:
         """
@@ -23,7 +23,7 @@ class RestCon:
 
             Methods:
             --------
-            connect: (url, connectionType="GET", payload=None)
+            connect: (url, connectionType='GET', payload=None)
                 Description
         """
         # Device declaration:
@@ -44,14 +44,9 @@ class RestCon:
 
     def __repr__(self):
         """ Connection class representation is IP address and port number of Https server. """
-        
-        # Check connection status:
-        if self.status is False:
-            return None
-        else:
-            return f"{self.device.hostname}:{self.device.ssh_port}"
+        return self.device.hostname
 
-    def get(self, url, headers: str = None, payload: str = None):
+    def get(self, url, payload: str = None, header: dict = None) -> requests:
         """
             Send HTTPS GET request.
 
@@ -61,40 +56,51 @@ class RestCon:
                 URL string used to construct HTTPS request.
             payload: string
                 Additional data used to construct HTTPS request.
-
+            header: dict
+                Additional header information.
             return:
             -------
             jsonResponse: dict
                 Return date collected from HTTPS server.
         """
 
-        # Create URL Address frome tamplate:
-        request_url = f"""https://{self.device.hostname}:{self.device.https_port}/{url}"""
+        # Create URL Address from tamplate:
+        request_url = f'''https://{self.device.hostname}:{self.device.https_port}/{url}'''
+
+        # Cisco default headers:
+        if header is None:
+            header = {
+                'Accept': 'application/yang-data+json',
+                'Content-Type': 'application/yang-data+json',
+            }
 
         # Try to connect with device:
         try:
             # Log starting of a new connection to https server:
-            RestCon.logger.info("Starting a new Https connection.", self)
+            RestCon.logger.info('Starting a new Https connection.', self)
 
             # Connect to https server with password and username or by token:
             if self.device.token:
                 response = requests.get(
                     request_url,
-                    headers=headers,
+                    headers=header,
                     data=payload,
                     verify=self.device.certificate,
                 )
             else: # Token inside header:
                 response = requests.get(
                     request_url,
-                    headers=headers,
+                    headers=header,
                     auth=(self.device.credential.username, self.device.credential.password),
                     data=payload,
                     verify=self.device.certificate,
                 )
-                
+
+            # Change connection status to True:
+            self.status = True
+            
             # Convert HTTPS response:
-            self.__connect(response)
+            return self.__connect(response)
 
         except requests.exceptions.SSLError as error:
             RestCon.logger.error(error, self)
@@ -114,6 +120,12 @@ class RestCon:
             self.status = False
             return self.status
 
+        except requests.exceptions.ConnectionError as error:
+            RestCon.logger.error(error, self)        
+            # Change connection status to False:
+            self.status = False
+            return self.status
+
     def __connect(self, response):
         """
             Convert HTTPS response to ridable data.
@@ -123,48 +135,29 @@ class RestCon:
             response: 
                 Description
         """
-            
+        print(response)
         # Log when https connection was established:
-        RestCon.logger.debug("Https connection was established.", self)
+        RestCon.logger.debug('Https connection was established.', self)
             
         # Try to convert response to python dictionary:
         try:
             jsonResponse = json.loads(response.text)
         except:
-            # Logg when python dictionary convert process faill:
-            RestCon.logger.warning("Python dictionary convert process faill.", self)
+            # Log when python dictionary convert process fail:
+            RestCon.logger.warning('Python dictionary convert process fail.', self)
             jsonResponse = None
 
-        # chech response status:
+        # Check response status:
         if response.status_code < 200: # All respons from 0 to 199.
-            RestCon.logger.warning("Connection to was a informational HTTPS.", self)
+            RestCon.logger.warning(f'Connection to {self.device.hostname}, was a informational HTTPS request.', self)
         elif response.status_code < 300: # All respons from 200 to 299.
-            RestCon.logger.info("Connection to was a success HTTPS.", self)
+            RestCon.logger.info(f'Connection to {self.device.hostname}, was a success HTTPS request.', self)
         elif response.status_code < 400: # All respons from 300 to 399.
-            RestCon.logger.warning("Connection to returned redirection HTTPS error.", self)
+            RestCon.logger.warning(f'Connection to {self.device.hostname}, returned redirection HTTPS error.', self)
         elif response.status_code < 500: # All respons from 400 to 499.
-            RestCon.logger.error("Connection to returned client HTTPS error.", self)
+            RestCon.logger.error(f'Connection to {self.device.hostname}, returned client HTTPS error.', self)
         elif response.status_code < 600: # All respons from 500 to 599.
-            RestCon.logger.error("Connection to returned server HTTPS error.", self)
+            RestCon.logger.error(f'Connection to {self.device.hostname}, returned server HTTPS error.', self)
+        
         # Return Https response in Json format:
         return jsonResponse
-
-    def __responseToString(self, response) -> str:
-        """
-            __responseToString
-
-            Parameters:
-            -----------
-            response: dict
-                Description
-
-            return:
-            -------
-            returnString: string
-                Description
-        """
-        returnString = ""
-        if isinstance(response, dict):
-            for key in response:
-                returnString = returnString + f"{key}: {response[key]}"
-        return returnString

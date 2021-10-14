@@ -1,5 +1,4 @@
 # Python Imports:
-from datetime import datetime
 import os
 from typing import Tuple
 
@@ -82,18 +81,17 @@ class Logger():
         """
         return self.__log(ERROR, message, module, additional_data)
 
-    def __log(self, severity, message, module, additional_data) -> Tuple:
+    def __log(self, severity, message: str, module: str, additional_data: dict) -> Tuple:
         """ Create new log in Database """
         new_log = None
         new_additional_data = None
 
         new_log = LoggerData.objects.create(
-            timestamp = datetime.timestamp(datetime.now()),
             process = os.getpid(),
-            application = self.application,
-            module = module,
+            application = str(self.application),
+            module = str(module),
             severity = severity,
-            message = message,
+            message = str(message),
         )
 
         if additional_data is not False:

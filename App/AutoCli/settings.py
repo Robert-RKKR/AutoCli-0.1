@@ -82,13 +82,34 @@ TEMPLATES = [
 WSGI_APPLICATION = 'AutoCli.wsgi.application'
 
 
+# For Websocket Support
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+
+# Celery configuration
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'autocli7',
+        'NAME': 'autocli9',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
@@ -146,12 +167,6 @@ LANGUAGES = (
     ('de', _('German')),
     ('pl', _('Polish')),
 )
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),

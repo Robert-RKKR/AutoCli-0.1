@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 # Application Import:
 from logger.logger import Logger
+from logger.models import LoggerData
 from .models import (
     Device,
 )
@@ -83,8 +84,13 @@ def device(request, id):
         'device': device,
     }
 
-    from .connection.connection_manager import check_ssh
-    data['output'] = check_ssh(device).status
+    from .tasks import task_simple
+    data['output'] = task_simple.delay(id)
+    #data['output'] = task_simple.apply_async((id,), countdown=5)
+
+    """from .tasks import task_simple
+    data['output'] = task_simple.delay(id)"""
+    data['logs'] = LoggerData.objects.filter(module=device.hostname).order_by('-id')[:10]
     
     # GET method:
     return render(request, 'management/device.html', data)

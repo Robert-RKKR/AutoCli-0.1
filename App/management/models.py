@@ -16,7 +16,7 @@ class Tag(models.Model):
     # Model values:
     name = models.CharField(max_length=32, blank=False, unique=True)
     color = models.CharField(
-        max_length=64,
+        max_length=8,
         blank=True,
         null=True,
         validators=[color_validator],

@@ -9,7 +9,7 @@ class LoggerData(models.Model):
         (4, 'ERROR'),
         (5, 'CRITICAL'),
     )
-    timestamp = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     process = models.IntegerField()
     application = models.CharField(max_length=128)
     module = models.CharField(max_length=128, null=True)

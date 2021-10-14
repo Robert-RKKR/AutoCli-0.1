@@ -8,6 +8,32 @@
 
         <h3 class="primary-font">{{ device.get_device_type_display }}</h3>
         {{ output }}
+
+        <div class="row my-5">
+            <h3 class="fs-4 mb-3">Recent Orders</h3>
+            <div class="col">
+                <table class="table box-bg rounded shadow-sm  table-hover table-blue">
+                    <thead>
+                        <tr>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col">Application</th>
+                            <th scope="col">Severity</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                            <tr>
+                                <th>{{ log.timestamp }}</th>
+                                <td>{{ log.application }}</td>
+                                <td>{{ log.get_severity_display }}</td>
+                                <td>{{ log.message }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
         
     </div>
 
