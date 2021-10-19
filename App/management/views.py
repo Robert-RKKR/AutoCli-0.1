@@ -68,7 +68,7 @@ def devices_search(request):
             else:
                 output_elements[element] = False
 
-        data['devices'] = Device.objects.filter(name__contains=name, **output_elements)
+        data['devices'] = Device.objects.filter(name__contains=name, **output_elements).order_by('name')
         return render(request, 'management/devices_search.html', data)
 
 

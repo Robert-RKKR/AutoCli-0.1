@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
 
     # Third-Party Apps:
     'rest_framework.authtoken',
@@ -80,6 +81,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AutoCli.wsgi.application'
+
+
+# Rest api:
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 
 # For Websocket Support

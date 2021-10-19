@@ -2,9 +2,11 @@
 from rest_framework import serializers
 
 # Application Import:
+from logger.models import LoggerData
 from management.models import (
     Device,
 )
+
 
 class DeviceGetSerializer(serializers.ModelSerializer):
 
@@ -27,4 +29,14 @@ class DevicePostSerializer(serializers.ModelSerializer):
             'name', 'status', 'hostname', 'device_type',
             'credential', 'ico', 'ssh_port',
             'https_port', 'certificate', 'description',
+        ]
+
+
+class LoggerDataGetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LoggerData
+        fields = [
+            'id', 'timestamp', 'process', 'application',
+            'module', 'severity', 'message',
         ]

@@ -2,8 +2,8 @@
 import os
 
 # Application Import:
-from connection.netcon import NetCon
-from connection.restcon import RestCon
+from .connection.netcon import NetCon
+from .connection.restcon import RestCon
 from .models import Device
 
 # Celery Import:

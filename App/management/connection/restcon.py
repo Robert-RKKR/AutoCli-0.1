@@ -98,6 +98,9 @@ class RestCon:
 
             # Change connection status to True:
             self.status = True
+
+            # Log when https connection was established:
+            RestCon.logger.debug('Https connection was established.', self)
             
             # Convert HTTPS response:
             return self.__connect(response)
@@ -135,9 +138,6 @@ class RestCon:
             response: 
                 Description
         """
-        print(response)
-        # Log when https connection was established:
-        RestCon.logger.debug('Https connection was established.', self)
             
         # Try to convert response to python dictionary:
         try:
@@ -158,6 +158,9 @@ class RestCon:
             RestCon.logger.error(f'Connection to {self.device.hostname}, returned client HTTPS error.', self)
         elif response.status_code < 600: # All respons from 500 to 599.
             RestCon.logger.error(f'Connection to {self.device.hostname}, returned server HTTPS error.', self)
+
+        # Log https response type:
+        RestCon.logger.debug(f'Https response returned {response.status_code} code.', self)
         
         # Return Https response in Json format:
         return jsonResponse
