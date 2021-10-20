@@ -16,11 +16,6 @@ from .models import (
     Device,
 )
 
-# Main data dictionary:
-main_data = {
-    
-}
-
 
 # All views:
 def devices_search(request):
@@ -68,7 +63,7 @@ def devices_search(request):
             else:
                 output_elements[element] = False
 
-        data['devices'] = Device.objects.filter(name__contains=name, **output_elements).order_by('name')
+        data['devices'] = Device.objects.filter(name__contains=name, **output_elements).order_by('id')
         return render(request, 'management/devices_search.html', data)
 
 
