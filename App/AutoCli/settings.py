@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     # Local Apps:
     'management',
+    'automation',
     'logger',
     'api',
 ]

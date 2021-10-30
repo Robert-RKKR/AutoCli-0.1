@@ -9,7 +9,7 @@ from .managers import ActiveManager
 from .validators import ColorValidator
 
 
-# Additional device models: null, blank, invalid, invalid_choice, unique
+# Additional device models:
 class Tag(models.Model):
     # Validators:
     color_validator = ColorValidator()
@@ -35,25 +35,22 @@ class Tag(models.Model):
 
 
 class Credential(models.Model):
+    # Creation data:
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    # Username data:
     name = models.CharField(max_length=32, blank=False, unique=True)
     username = models.CharField(max_length=64, blank=False)
+    description = models.CharField(max_length=512, default="Device credential description")
+
+    # Security data:
     password = models.CharField(max_length=64, null=True)
     secret = models.CharField(max_length=64, null=True, blank=True)
     token = models.CharField(max_length=128, null=True, blank=True)
-    description = models.CharField(max_length=512, default="Device credential description")
 
     def __str__(self) -> str:
         return self.name
-
-
-# Relations:
-class TagDeviceRelation(models.Model):
-    device = models.ForeignKey('Device', on_delete=models.CASCADE)
-    tag = models.ForeignKey('Tag', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = [['device', 'tag']]
 
 
 # Main device model:
@@ -142,3 +139,13 @@ class Device(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+# Relations models:
+class TagDeviceRelation(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['device', 'tag']]
