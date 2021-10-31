@@ -7,7 +7,9 @@ from rest_framework import generics
 # Serializers Import:
 from .serializers import (
     DeviceGetSerializer,
-    DevicePostSerializer,
+    DeviceSimplePostSerializer,
+    DeviceComplexPostSerializer,
+    CredentialDataGetSerializer,
     LoggerDataGetSerializer,
 )
 
@@ -21,13 +23,14 @@ from .pagination import (
 # Models Import:
 from logger.models import LoggerData
 from management.models import (
-    Device,
+    Device, Credential,
 )
 
 # ALL Device Views:
 class DeviceAllAPI(generics.ListAPIView):
     queryset = Device.active.all().order_by('id')
     serializer_class = DeviceGetSerializer
+    pagination_class = SmallResultsSetPagination
 
 
 class DeviceOneAPI(generics.RetrieveAPIView):
@@ -36,9 +39,21 @@ class DeviceOneAPI(generics.RetrieveAPIView):
     serializer_class = DeviceGetSerializer
 
 
-class DeviceAddAPI(generics.CreateAPIView):
+class DeviceSimpleAddAPI(generics.CreateAPIView):
     queryset = Device.objects.all()
-    serializer_class = DevicePostSerializer
+    serializer_class = DeviceSimplePostSerializer
+
+
+class DeviceComplexAddAPI(generics.CreateAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceComplexPostSerializer
+
+
+# ALL Credentials Views:
+class CredentialAllAPI(generics.ListAPIView):
+    queryset = Credential.objects.all().order_by('id')
+    serializer_class = CredentialDataGetSerializer
+    pagination_class = SmallResultsSetPagination
 
 
 # ALL Logger Views:

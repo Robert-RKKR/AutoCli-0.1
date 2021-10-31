@@ -1,5 +1,6 @@
 # Django Import:
 from django.utils.translation import gettext_lazy as _
+from django.dispatch import receiver
 from django.db import models
 
 # Applications Import:
@@ -53,7 +54,17 @@ class Credential(models.Model):
         return self.name
 
 
-# Main device model:
+# Relations models:
+class TagDeviceRelation(models.Model):
+    device = models.ForeignKey('Device', on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['device', 'tag']]
+
+
+# Device related models:
 class Device(models.Model):
     PATH = 'static/management/svg/'
     STATUS_CHOICES = (
@@ -98,7 +109,7 @@ class Device(models.Model):
         (26, (f'{PATH}wavelength-router.svg')),
     )
 
-    # Creation data:
+    # Creation and status data:
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -124,8 +135,8 @@ class Device(models.Model):
 
     # Security and credentials:
     credential = models.ForeignKey(Credential, on_delete=models.PROTECT, null=True, blank=True)
-    secret = models.CharField(max_length=64, null=True, blank=True)
-    token = models.CharField(max_length=128, null=True, blank=True)
+    secret = models.CharField(max_length=64, null=True)
+    token = models.CharField(max_length=128, null=True)
     certificate = models.BooleanField(default=False)
 
     # Device status:
@@ -140,12 +151,37 @@ class Device(models.Model):
     def __str__(self) -> str:
         return self.name
 
+@receiver(models.signals.post_save, sender=Device)
+def execute_after_save(sender, instance, created, *args, **kwargs):
+    if created:
+        # Check if device is available:
+        pass
 
-# Relations models:
-class TagDeviceRelation(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+
+class DeviceData(models.Model):
+
+    # Corelation witch device model:
+    device = models.ForeignKey(Device, on_delete=models.CASCADE, null=False, blank=False)
+    
+    # Creation data:
     created = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = [['device', 'tag']]
+    # Basic device information:
+    hostname = models.CharField(max_length=64, blank=True, null=True)
+    system_version = models.CharField(max_length=64, blank=True, null=True)
+    domain_name = models.CharField(max_length=64, blank=True, null=True)
+    default_gateway = models.GenericIPAddressField(blank=True, null=True)
+    name_server_list = models.JSONField(blank=True, null=True)
+    ntp_server_list = models.JSONField(blank=True, null=True)
+    os_boot_files_list = models.JSONField(blank=True, null=True)
+    ios_users_list = models.JSONField(blank=True, null=True)
+
+    # SNMP protocol information:
+    snmp_server_community_list = models.JSONField(blank=True, null=True)
+    snmp_server_group_list = models.JSONField(blank=True, null=True)
+    snmp_server_user_list = models.JSONField(blank=True, null=True)
+
+    # STP protocol information:
+    spanning_tree_mode = models.CharField(max_length=64,blank=True,null=True)
+
+    # 

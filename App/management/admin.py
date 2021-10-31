@@ -4,10 +4,8 @@ from django.utils.translation import ngettext
 
 # Applications Import:
 from .models import (
-    TagDeviceRelation,
-    Credential,
-    Tag,
-    Device,
+    TagDeviceRelation, Credential,
+    Tag, Device, DeviceData,
 )
 
 # Admin classes:
@@ -59,6 +57,16 @@ class DeviceAdmin(admin.ModelAdmin):
             '%d devices were successfully marked as active.',
             change,
         ) % change, messages.SUCCESS)
+
+
+@admin.register(DeviceData)
+class CredentialAdmin(admin.ModelAdmin):
+    list_display = (
+        'device', 'created', 'hostname', 'system_version',
+    )
+    search_fields = (
+        'device', 'created',
+    )
 
 
 @admin.register(Credential)

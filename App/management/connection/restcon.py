@@ -79,8 +79,18 @@ class RestCon:
             # Log starting of a new connection to https server:
             RestCon.logger.info('Starting a new Https connection.', self)
 
+            # Collect user information:
+            try:
+                username = self.device.credential.username
+                password = self.device.credential.password
+            except AttributeError as error:
+                # Use default user data from settings:
+                # Add settings.
+                username = 'admin'
+                password = 'admin'
+
             # Connect to https server with password and username or by token:
-            if self.device.token:
+            if self.device.token is not None:
                 response = requests.get(
                     request_url,
                     headers=header,
@@ -91,13 +101,10 @@ class RestCon:
                 response = requests.get(
                     request_url,
                     headers=header,
-                    auth=(self.device.credential.username, self.device.credential.password),
+                    auth=(username, password),
                     data=payload,
                     verify=self.device.certificate,
                 )
-
-            # Change connection status to True:
-            self.status = True
 
             # Log when https connection was established:
             RestCon.logger.debug('Https connection was established.', self)
@@ -150,14 +157,28 @@ class RestCon:
         # Check response status:
         if response.status_code < 200: # All respons from 0 to 199.
             RestCon.logger.warning(f'Connection to {self.device.hostname}, was a informational HTTPS request.', self)
+            # Change connection status to True:
+            self.status = True
+
         elif response.status_code < 300: # All respons from 200 to 299.
             RestCon.logger.info(f'Connection to {self.device.hostname}, was a success HTTPS request.', self)
+            # Change connection status to True:
+            self.status = True
+
         elif response.status_code < 400: # All respons from 300 to 399.
             RestCon.logger.warning(f'Connection to {self.device.hostname}, returned redirection HTTPS error.', self)
+            # Change connection status to False:
+            self.status = False
+
         elif response.status_code < 500: # All respons from 400 to 499.
             RestCon.logger.error(f'Connection to {self.device.hostname}, returned client HTTPS error.', self)
+            # Change connection status to False:
+            self.status = False
+
         elif response.status_code < 600: # All respons from 500 to 599.
             RestCon.logger.error(f'Connection to {self.device.hostname}, returned server HTTPS error.', self)
+            # Change connection status to False:
+            self.status = False
 
         # Log https response type:
         RestCon.logger.debug(f'Https response returned {response.status_code} code.', self)

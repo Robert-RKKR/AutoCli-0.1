@@ -4,10 +4,10 @@ from rest_framework import serializers
 # Application Import:
 from logger.models import LoggerData
 from management.models import (
-    Device,
+    Device, Credential,
 )
 
-
+# Device serializers:
 class DeviceGetSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -21,7 +21,16 @@ class DeviceGetSerializer(serializers.ModelSerializer):
         ]
 
 
-class DevicePostSerializer(serializers.ModelSerializer):
+class DeviceSimplePostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Device
+        fields = [
+            'name', 'hostname',
+        ]
+
+
+class DeviceComplexPostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Device
@@ -32,6 +41,18 @@ class DevicePostSerializer(serializers.ModelSerializer):
         ]
 
 
+# Credentials serializers:
+class CredentialDataGetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Credential
+        fields = [
+            'name', 'username', 'password', 'secret',
+            'token', 'description', 'created', 'updated',
+        ]
+
+
+# Logerg serializers:
 class LoggerDataGetSerializer(serializers.ModelSerializer):
 
     class Meta:

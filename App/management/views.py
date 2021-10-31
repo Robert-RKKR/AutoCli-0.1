@@ -79,13 +79,19 @@ def device(request, id):
         'device': device,
     }
 
-    from .tasks import task_simple
-    data['output'] = task_simple.delay(id)
+    from .tasks import single_device_check, single_device_collect
+    output = []
+    output.append(single_device_check.delay(device.id))
+    #output.append(single_device_collect.delay(device.id))
+    output.append(single_device_collect(device.id))
+    data['output'] = output
     #data['output'] = task_simple.apply_async((id,), countdown=5)
     #data['output'] = update_all.delay()
 
-    """from .tasks import task_simple
-    data['output'] = task_simple.delay(id)"""
+    data['device_data'] = [
+        device.token,
+    ]
+
     data['logs'] = LoggerData.objects.filter(module=device.hostname).order_by('-id')[:10]
     
     # GET method:

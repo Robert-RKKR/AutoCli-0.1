@@ -7,7 +7,13 @@
     <div class="px-4">
 
         <h3 class="primary-font">{{ device.get_device_type_display }}</h3>
-        {{ output }}
+        {% for data in output %}
+        <p>{{ data }}</p>
+        {% endfor %}
+
+        {% for data in device_data %}
+            <p>{{ data }}</p>
+        {% endfor %}
 
         <div class="row my-5">
             <h3 class="fs-4 mb-3">Recent Orders</h3>
