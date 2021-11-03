@@ -1,5 +1,6 @@
 # Python Import:
 import requests
+import xmltodict
 import json
 
 # Application Import:
@@ -31,6 +32,8 @@ class RestCon:
 
         # Connection status:
         self.status = None
+        self.xml_status = None
+        self.json_status = None
 
         # Execution timer:
         self.execution_time = None
@@ -145,14 +148,27 @@ class RestCon:
             response: 
                 Description
         """
+        convertResponse = None
             
-        # Try to convert response to python dictionary:
+        # Try to convert JSON response to python dictionary:
         try:
-            jsonResponse = json.loads(response.text)
+            convertResponse = json.loads(response.text)
+            self.json_status = True
         except:
             # Log when python dictionary convert process fail:
-            RestCon.logger.warning('Python dictionary convert process fail.', self)
-            jsonResponse = None
+            RestCon.logger.warning('Python JSON -> dictionary convert process fail.', self)
+            convertResponse = False
+            self.json_status = False
+
+            # Try to convert XML response to python dictionary if JSON fails:
+            try:
+                convertResponse = xmltodict.parse(response.text)
+                self.xml_status = True
+            except:
+                # Log when python dictionary convert process fail:
+                RestCon.logger.warning('Python XML -> dictionary convert process fail.', self)
+                convertResponse = False
+                self.xml_status = False
 
         # Check response status:
         if response.status_code < 200: # All respons from 0 to 199.
@@ -184,4 +200,4 @@ class RestCon:
         RestCon.logger.debug(f'Https response returned {response.status_code} code.', self)
         
         # Return Https response in Json format:
-        return jsonResponse
+        return convertResponse

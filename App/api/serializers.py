@@ -16,7 +16,7 @@ class DeviceGetSerializer(serializers.ModelSerializer):
             'id', 'status', 'created', 'updated',
             'name', 'hostname', 'device_type', 'ico', 'ssh_port', 'https_port', 'description',
             'credential', 'secret', 'token', 'certificate',
-            'ssh_status', 'https_status', 'ping_status',
+            'ssh_status', 'https_status',
             
         ]
 

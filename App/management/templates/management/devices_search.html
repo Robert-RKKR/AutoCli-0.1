@@ -71,8 +71,8 @@
                             {% else %}
                             <div class="ball ball-inactive" aria-label="HTTPS"></div>
                             {% endif %}
-                            <!-- PING status -->
-                            {% if result.ping_status == True %}
+                            <!-- Active status -->
+                            {% if result.status == 1 %}
                             <div class="ball ball-active" aria-label="Ping"></div>
                             {% else %}
                             <div class="ball ball-inactive" aria-label="Ping"></div>

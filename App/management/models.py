@@ -135,14 +135,13 @@ class Device(models.Model):
 
     # Security and credentials:
     credential = models.ForeignKey(Credential, on_delete=models.PROTECT, null=True, blank=True)
-    secret = models.CharField(max_length=64, null=True)
-    token = models.CharField(max_length=128, null=True)
+    secret = models.CharField(max_length=64, null=True, blank=True)
+    token = models.CharField(max_length=128, null=True, blank=True)
     certificate = models.BooleanField(default=False)
 
     # Device status:
     ssh_status = models.BooleanField(default=False)
     https_status = models.BooleanField(default=False)
-    ping_status = models.BooleanField(default=False)
 
     # Object managers:
     objects = models.Manager()
@@ -184,4 +183,10 @@ class DeviceData(models.Model):
     # STP protocol information:
     spanning_tree_mode = models.CharField(max_length=64,blank=True,null=True)
 
-    # 
+    # Statistics:
+    memory_stats = models.JSONField(blank=True, null=True)
+    cpu_stats = models.JSONField(blank=True, null=True)
+
+    """
+    partitions_list = models.JSONField(blank=True, null=True)
+    images_files_list = models.JSONField(blank=True, null=True)"""

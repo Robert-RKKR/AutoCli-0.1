@@ -4,6 +4,7 @@ import os
 # Application Import:
 from .connection.netcon import NetCon
 from .connection.restcon import RestCon
+from .connection.connection_manager import ConnectionManager
 from .models import Device, DeviceData
 
 # Celery Import:
@@ -11,8 +12,8 @@ from celery import shared_task
 
 
 # Task device related:
-@shared_task(bind=True, track_started=True)
-def single_device_check(self, device_id: int) -> bool:
+#@shared_task(bind=True, track_started=True)
+def single_device_check(device_id: int) -> bool:
     """
         Check if device is available by using HTTPS request at the beginning,
         and an SSH connection if the HTTPS request fails.
@@ -41,14 +42,15 @@ def single_device_check(self, device_id: int) -> bool:
             device.save()
 
         # Connect to device using SSH connection:
-        ssh_connection = None
+        #ssh_connection = NetCon(device)
+        print(device.device_type)
 
     else: # If device variable is not a intiger, raise type error:
         raise TypeError('device variable can only be a intiger.')
 
     # Return single device check status:
     return status
-
+    
 
 #@shared_task(bind=True, track_started=True)
 def single_device_collect(device_id: int) -> bool:
@@ -64,41 +66,9 @@ def single_device_collect(device_id: int) -> bool:
         # Find Device object by ID:
         device = Device.objects.get(id=device_id)
 
-        # Connect to device using HTTPS:
-        https_connection = RestCon(device)
-        native_output = https_connection.get('restconf/data/Cisco-IOS-XE-native:native')
-
-        # Save collected data:
-        native = native_output.get('Cisco-IOS-XE-native:native', None)
-        if native is None:
-            native = {}
-
-        device_data = {
-            # Corelation witch device model:
-            'device': device,
-
-            # Basic device information:
-            'hostname': native.get('hostname', None),
-            'system_version': native.get('version', None),
-        }
-
-        """domain_name = native.get('', None)
-            default_gateway = native.get('', None)
-            name_server_list = native.get('', None)
-            ntp_server_list = native.get('', None)
-            os_boot_files_list = native.get('', None)
-            ios_users_list = native.get('', None)
-
-            # SNMP protocol information:
-            snmp_server_community_list = native.get('', None)
-            snmp_server_group_list = native.get('', None)
-            snmp_server_user_list = native.get('', None)
-
-            # STP protocol information:
-            spanning_tree_mode = native.get('', None)"""
-
-        device_data_model = DeviceData.objects.create(**device_data)
-
+        # Run connection manager to collect all data:
+        collector = ConnectionManager(device)
+        collector.collect_data()
 
     else: # If device variable is not a intiger, raise type error:
         raise TypeError('device variable can only be a intiger.')
@@ -124,9 +94,3 @@ def active_devices_check(self) -> bool:
 
     # Return active devices check status:
     return status
-
-
-class ConnectionManager:
-
-    def __init__(self, device_list: list) -> None:
-        self.device_list = device_list

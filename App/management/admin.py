@@ -17,7 +17,7 @@ class DeviceAdmin(admin.ModelAdmin):
     )
     list_display = (
         'name', 'hostname', 'ssh_status',
-        'https_status', 'ping_status',
+        'https_status',
     )
     list_filter = (
         'status', 'device_type', 'credential',
