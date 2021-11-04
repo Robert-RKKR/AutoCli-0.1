@@ -12,8 +12,8 @@ from celery import shared_task
 
 
 # Task device related:
-#@shared_task(bind=True, track_started=True)
-def single_device_check(device_id: int) -> bool:
+@shared_task(bind=True, track_started=True)
+def single_device_check(self, device_id: int) -> bool:
     """
         Check if device is available by using HTTPS request at the beginning,
         and an SSH connection if the HTTPS request fails.
@@ -29,7 +29,7 @@ def single_device_check(device_id: int) -> bool:
             
         # Connect to device using HTTPS request:
         https_connection = RestCon(device)
-        https_output = https_connection.get('restconf')
+        https_connection.get('restconf')
 
         # Check HTTPS request output and change device status:
         if https_connection.status is True:
@@ -37,13 +37,18 @@ def single_device_check(device_id: int) -> bool:
             device.ssh_status = True
             device.save()
         else:
-            device.https_status = False
-            device.ssh_status = False
-            device.save()
-
-        # Connect to device using SSH connection:
-        #ssh_connection = NetCon(device)
-        print(device.device_type)
+            # Connect to device using SSH connection:
+            ssh_connection = NetCon(device)
+        
+            # Check SSH request output and change device status:
+            if ssh_connection.status is True:
+                device.https_status = False
+                device.ssh_status = True
+                device.save()
+            else:
+                device.https_status = False
+                device.ssh_status = False
+                device.save()
 
     else: # If device variable is not a intiger, raise type error:
         raise TypeError('device variable can only be a intiger.')
@@ -52,8 +57,8 @@ def single_device_check(device_id: int) -> bool:
     return status
     
 
-#@shared_task(bind=True, track_started=True)
-def single_device_collect(device_id: int) -> bool:
+@shared_task(bind=True, track_started=True)
+def single_device_collect(self, device_id: int) -> bool:
     """
         Collect data from device.
     """

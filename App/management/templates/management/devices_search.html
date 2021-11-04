@@ -59,6 +59,12 @@
 
                         <!-- Box activity -->
                         <div class="d-flex">
+                            <!-- Active status -->
+                            {% if result.status == 1 %}
+                            <div class="ball ball-active" aria-label="Active"></div>
+                            {% else %}
+                            <div class="ball ball-inactive" aria-label="Active"></div>
+                            {% endif %}
                             <!-- SSH status -->
                             {% if result.ssh_status == True %}
                                 <div class="ball ball-active" aria-label="SSH"></div>
@@ -70,12 +76,6 @@
                             <div class="ball ball-active" aria-label="HTTPS"></div>
                             {% else %}
                             <div class="ball ball-inactive" aria-label="HTTPS"></div>
-                            {% endif %}
-                            <!-- Active status -->
-                            {% if result.status == 1 %}
-                            <div class="ball ball-active" aria-label="Ping"></div>
-                            {% else %}
-                            <div class="ball ball-inactive" aria-label="Ping"></div>
                             {% endif %}
                         </div>
                         

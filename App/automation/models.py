@@ -83,7 +83,7 @@ class TemplateAutomationPolicyRelation(models.Model):
 
 
 class DeviceAutomationPolicyRelation(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.PROTECT)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
     automation_policy = models.ForeignKey(AutomationPolicy, on_delete=models.PROTECT)
     sequence = models.IntegerField(unique=True, blank=False)
 

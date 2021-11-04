@@ -1,8 +1,15 @@
+# Python Import:
+import textfsm
+import os
+
 # Application Import:
-from posixpath import split
 from .netcon import NetCon
 from .restcon import RestCon
-from ..models import Device, DeviceData
+from ..models import (
+    Device,
+    DeviceData,
+    SshDeviceData
+)
 
 class ConnectionManager:
 
@@ -16,7 +23,9 @@ class ConnectionManager:
         """
             Description.
         """
-        if self.device.https_status is True:
+        ssh_connection = NetCon(self.device)
+        self.__cisco_ssh(ssh_connection)
+        """if self.device.https_status is True:
             # Connect to device using HTTPS:
             https_connection = RestCon(self.device)
             https_connection.get('restconf')
@@ -24,12 +33,54 @@ class ConnectionManager:
                 self.__cisco_ios_xe(https_connection)
             else:
                 self.__cisco_nx_os(https_connection)
-        elif self.device.ssh_status is True:
-            self.__cisco_ssh()
+        else:
+            ssh_connection = NetCon(self.device)
+            self.__cisco_ssh(ssh_connection)"""
 
 
-    def __cisco_ssh(self):
-        print('---> SSH CONNECTION')
+    def __text_fsm_convert(self, commands_list: list) -> dict:
+
+        key_list = []
+        
+        for command in commands_list:
+            file_name = os.path.basename(command[1]).split('.')[0]
+
+            # Use TextFSM to conwert string into dictionary:
+            with open(command[1]) as template:
+                fsm = textfsm.TextFSM(template)
+                fsmResult = fsm.ParseText(command[0])
+            
+            # Create output dictionary:
+            output = []
+            for row in fsmResult:
+                output.append(dict(zip(fsm.header, row)))
+
+            # Save output to dictionary:
+            self.device_data[file_name] = output[0]
+            key_list.append(file_name)
+        
+        return key_list
+        
+
+    def __cisco_ssh(self, ssh_connection):
+        """
+            Description.
+        """
+        commands_list =[
+            (
+                ssh_connection.send_command('show version'),
+                'management/connection/ssh_templates/cisco_ios_show_version.textfsm'
+            ),
+            (
+                ssh_connection.send_command('show interfaces'),
+                'management/connection/ssh_templates/cisco_ios_show_interfaces.textfsm'
+            ),
+        ]
+        
+        # Use TextFSM to conwert string into dictionary:
+        key_list = self.__text_fsm_convert(commands_list)
+        self.device_data['cisco_ios_show_version']['device'] = self.device
+        SshDeviceData.objects.create(**self.device_data['cisco_ios_show_version'])
         
 
     def __cisco_ios_xe(self, https_connection):

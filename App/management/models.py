@@ -190,3 +190,27 @@ class DeviceData(models.Model):
     """
     partitions_list = models.JSONField(blank=True, null=True)
     images_files_list = models.JSONField(blank=True, null=True)"""
+
+
+class SshDeviceData(models.Model):
+
+    # Corelation witch device model:
+    device = models.ForeignKey(Device, on_delete=models.CASCADE, null=False, blank=False)
+
+    # Creation data:
+    created = models.DateTimeField(auto_now_add=True)
+
+    # Basic device information:
+    
+
+    # Show version output:
+    version = models.CharField(max_length=64, blank=True, null=True)
+    rommon = models.CharField(max_length=64, blank=True, null=True)
+    hostname = models.CharField(max_length=64, blank=True, null=True)
+    uptime = models.CharField(max_length=64, blank=True, null=True)
+    reload_reason = models.CharField(max_length=64, blank=True, null=True)
+    running_image = models.CharField(max_length=64, blank=True, null=True)
+    config_register = models.CharField(max_length=64, blank=True, null=True)
+    hardware_list = models.JSONField(blank=True, null=True)
+    serial_list = models.JSONField(blank=True, null=True)
+    mac_list = models.JSONField(blank=True, null=True)

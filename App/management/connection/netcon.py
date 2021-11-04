@@ -2,7 +2,9 @@
 import time
 
 # Netmiko Import:
+from paramiko import ssh_exception
 from netmiko import ConnectHandler
+from netmiko.ssh_autodetect import SSHDetect
 from netmiko.ssh_exception import  AuthenticationException
 from netmiko.ssh_exception import NetMikoTimeoutException
 from paramiko.ssh_exception import SSHException
@@ -63,14 +65,40 @@ class NetCon:
         try:
             # Log start of SSH connection:
             NetCon.logger.debug('SSH connection has been started.', self)
-            self.connection = ConnectHandler(**{
-                'device_type': self.device_type,
-                'host': self.device.hostname,
-                'username': self.device.credential.username,
-                'password': self.device.credential.password,
-                'port': self.device.ssh_port,
-                'secret': self.device.credential.password,
-            })
+
+            # Check if device type is not a autodetect type:
+            if self.device.device_type != 0:
+                # Connect to device:
+                self.__ssh_connect()
+            else:
+                # Connect to device to check device type:
+                check_device_type = SSHDetect(**{
+                    'device_type': 'autodetect',
+                    'host': device.hostname,
+                    'username': device.credential.username,
+                    'password': device.credential.password,
+                    'port': device.ssh_port,
+                })
+                device_type = check_device_type.autodetect()
+                
+                # Change device type name to intiger:
+                if device_type == 'cisco_ios':
+                    self.device.device_type = 1
+                elif device_type == 'cisco_xr':
+                    self.device.device_type = 2
+                elif device_type == 'cisco_xe':
+                    self.device.device_type = 3
+                elif device_type == 'cisco_nxos':
+                    self.device.device_type = 4
+                else:
+                    self.device.device_type = 0
+                
+                # Update device object:
+                self.device.save()
+
+                # Connect to device:
+                self.__ssh_connect()
+
             NetCon.logger.info('SSH connection has been established.', self)
             self.status = True # Change connection status to True:
 
@@ -81,9 +109,23 @@ class NetCon:
         except NetMikoTimeoutException as error:
             NetCon.logger.error(error, self)
             self.status = False # Change connection status to False.
+        except ssh_exception.SSHException as error:
+            NetCon.logger.error(error, self)
+            self.status = False # Change connection status to False.
         except SSHException as error:
             NetCon.logger.error(error, self)
             self.status = False # Change connection status to False.
+
+    def __ssh_connect(self):
+        # Connect to device:
+        self.connection = ConnectHandler(**{
+            'device_type': self.device_type,
+            'host': self.device.hostname,
+            'username': self.device.credential.username,
+            'password': self.device.credential.password,
+            'port': self.device.ssh_port,
+            'secret': self.device.credential.password,
+        })  
 
     def __del__(self):
         """ End of SSH connection """

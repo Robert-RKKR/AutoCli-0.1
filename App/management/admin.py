@@ -5,7 +5,7 @@ from django.utils.translation import ngettext
 # Applications Import:
 from .models import (
     TagDeviceRelation, Credential,
-    Tag, Device, DeviceData,
+    Tag, Device, DeviceData, SshDeviceData,
 )
 
 # Admin classes:
@@ -66,6 +66,16 @@ class CredentialAdmin(admin.ModelAdmin):
     )
     search_fields = (
         'device', 'created',
+    )
+
+
+@admin.register(SshDeviceData)
+class CredentialAdmin(admin.ModelAdmin):
+    list_display = (
+        'device', 'created', 'hostname', 'version',
+    )
+    search_fields = (
+        'device', 'created', 'version',
     )
 
 

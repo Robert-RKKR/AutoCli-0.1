@@ -85,10 +85,10 @@ def device(request, id):
     #output.append(single_device_collect.delay(device.id))
     #data['output'] = task_simple.apply_async((id,), countdown=5)
     #data['output'] = update_all.delay()
-    output.append(single_device_check(device.id))
+    #output.append(single_device_check(device.id))
     #output.append(single_device_collect(device.id))
     #output.append(single_device_check.delay(device.id))
-    #output.append(single_device_collect.delay(device.id))
+    output.append(single_device_collect.delay(device.id))
     data['output'] = output
 
 
