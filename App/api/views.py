@@ -11,6 +11,7 @@ from .serializers import (
     DeviceComplexPostSerializer,
     CredentialDataGetSerializer,
     LoggerDataGetSerializer,
+    TagGetSerializer,
 )
 
 
@@ -23,12 +24,12 @@ from .pagination import (
 # Models Import:
 from logger.models import LoggerData
 from management.models import (
-    Device, Credential,
+    Device, Credential, Tag,
 )
 
 # ALL Device Views:
 class DeviceAllAPI(generics.ListAPIView):
-    queryset = Device.active.all().order_by('id')
+    queryset = Device.active.all()
     serializer_class = DeviceGetSerializer
     pagination_class = SmallResultsSetPagination
 
@@ -47,6 +48,13 @@ class DeviceSimpleAddAPI(generics.CreateAPIView):
 class DeviceComplexAddAPI(generics.CreateAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceComplexPostSerializer
+
+
+# ALL Tag Views:
+class TagDeviceAllAPI(generics.ListAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagGetSerializer
+    pagination_class = SmallResultsSetPagination
 
 
 # ALL Credentials Views:

@@ -8,6 +8,9 @@ urlpatterns = [
     path('device/add', views.DeviceSimpleAddAPI.as_view(), name='device_add_simple'),
     path('device/complex_add', views.DeviceComplexAddAPI.as_view(), name='device_add_complex'),
 
+    # Tag API:
+    path('tag-device/all', views.TagDeviceAllAPI.as_view(), name='tag_device_all'),
+
     # Credential API:
     path('credential/all', views.CredentialAllAPI.as_view(), name='credential_all'),
 
