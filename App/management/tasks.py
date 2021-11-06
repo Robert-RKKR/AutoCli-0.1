@@ -1,6 +1,3 @@
-# Python Import:
-import os
-
 # Application Import:
 from .connection.netcon import NetCon
 from .connection.restcon import RestCon
@@ -51,7 +48,7 @@ def single_device_check(self, device_id: int) -> bool:
                 device.save()
 
     else: # If device variable is not a intiger, raise type error:
-        raise TypeError('device variable can only be a intiger.')
+        raise TypeError('Device variable can only be a intiger.')
 
     # Return single device check status:
     return status
@@ -99,3 +96,28 @@ def active_devices_check(self) -> bool:
 
     # Return active devices check status:
     return status
+
+
+@shared_task(bind=True, track_started=True)
+def send_commands(self, device_id: int, commands: list) -> bool:
+
+    # Single device check status:
+    status = None
+
+    # Check if device_id variable is intiger:
+    if isinstance(device_id, int) and isinstance(commands, list):
+        
+        # Find Device object by ID:
+        device = Device.objects.get(id=device_id)
+
+        # Connect to device using SSH connection:
+        ssh_connection = NetCon(device)
+
+        # Sends commands:
+        output = ssh_connection.config_commands(commands)
+
+    else: # If device variable is not a intiger, raise type error:
+        raise TypeError('Device variable can only be a intiger or commands variable can only be a list.')
+
+    # Return single device check status:
+    return output

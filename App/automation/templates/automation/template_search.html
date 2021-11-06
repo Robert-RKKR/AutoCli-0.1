@@ -1,0 +1,56 @@
+{% extends "management/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container-fluid px-4 grid-container primary-font">
+
+        <!-- Search menu -->
+        <div>
+
+            <form action="#" method="POST">{% csrf_token %}
+
+                <!-- Search head -->
+                <div class="my-2 shadow-sm d-flex" id="search-head">
+                    <input type="search" name="name">
+                    <button type="submit" value="submit">Search</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- Box container -->
+        <div class="row g-3 my-2">
+
+
+
+            <!-- Box item  -->
+            {% for template in templates %}
+                <div class="col-md-6 col-xxl-4">
+                    <div class="box-bg shadow-sm p-3 box-height">
+                        
+                        <!-- Box header -->
+                        <div class="p-flex">
+                            <div class="d-flex justify-content-around">
+                                <div class="box-margin-left">
+                                    <h3 class="fs-2">
+                                        <a class="primary-font" href="../automation/template/{{ template.id }}">{{ template.name }}</a>
+                                    </h3>
+                                    <p class="fs-5">{{ template.created }}</p>
+                                    <p class="fs-5">{{ template.updated }}</p>
+                                    <p class="fs-5">{{ template.value }}</p>
+                                </div>
+                            </div>
+                        </div>
+                                    
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        
+    </div>
+
+{% endblock %}

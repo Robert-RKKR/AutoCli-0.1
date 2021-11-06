@@ -1,4 +1,4 @@
-# Django import:
+# Django Import:
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic.list import ListView
@@ -87,7 +87,7 @@ def device(request, id):
     #data['output'] = update_all.delay()
     #output.append(single_device_check(device.id))
     #output.append(single_device_collect(device.id))
-    #output.append(single_device_check.delay(device.id))
+    output.append(single_device_check.delay(device.id))
     output.append(single_device_collect.delay(device.id))
     data['output'] = output
 

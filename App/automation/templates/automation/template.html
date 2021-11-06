@@ -1,0 +1,20 @@
+{% extends "management/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <!-- Search panel with additional options -->
+    <div class="px-4">
+
+        <h3 class="primary-font">{{ template.name }}</h3>
+        <p>{{ template.created }}</p>
+        <p>{{ template.updated }}</p>
+        <p>{{ template.value }}</p>
+
+        </br>
+        <p>{{ test }}</p>
+        
+    </div>
+
+
+{% endblock %}

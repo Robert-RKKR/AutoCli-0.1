@@ -28,5 +28,6 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns (
     path('management/', include('management.urls')),
+    path('automation/', include('automation.urls')),
     prefix_default_language=True,
 )

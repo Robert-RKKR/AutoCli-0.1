@@ -65,11 +65,37 @@ class Scheduler(models.Model):
     description = models.CharField(max_length=512, default="Scheduler description")
 
     # Execute data:
-    execute_time = models.TimeField(null=True)
-    execute_date = models.DateTimeField(null=True)
+    execute_time = models.TimeField(null=True, blank=True)
+    execute_date = models.DateTimeField(null=True, blank=True)
+    seconds = models.IntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
+
+    """class Meta:
+        
+        constraints = [
+            models.CheckConstraint(
+                name = '%(app_label)s_%(class)s_value_matches_type',
+                check = (
+                    models.Q(
+                        seconds__isnull = False,
+                        execute_time__isnull = False,
+                        execute_date__isnull = True,
+                    )
+                    | models.Q(
+                        seconds__isnull = False,
+                        execute_time__isnull = True,
+                        execute_date__isnull = False,
+                    )
+                    | models.Q(
+                        seconds__isnull = True,
+                        execute_time__isnull = False,
+                        execute_date__isnull = False,
+                    )
+                ),
+            )
+        ]"""
 
 
 # Relations models:

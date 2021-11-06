@@ -114,6 +114,10 @@ class Device(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    # Device status:
+    ssh_status = models.BooleanField(default=False)
+    https_status = models.BooleanField(default=False)
+
     # Device data:
     name = models.CharField(max_length=32, blank=False, unique=True)
     hostname = models.CharField(
@@ -138,10 +142,6 @@ class Device(models.Model):
     secret = models.CharField(max_length=64, null=True, blank=True)
     token = models.CharField(max_length=128, null=True, blank=True)
     certificate = models.BooleanField(default=False)
-
-    # Device status:
-    ssh_status = models.BooleanField(default=False)
-    https_status = models.BooleanField(default=False)
 
     # Object managers:
     objects = models.Manager()

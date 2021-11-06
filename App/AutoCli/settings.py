@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     # Third-Party Apps:
     'rest_framework.authtoken',
     'rest_framework',
+    'django_celery_beat',
+    #'channels',
 
     # Local Apps:
     'management',
@@ -110,6 +112,7 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 # Database
@@ -118,7 +121,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'autocli9',
+        'NAME': 'autocli10',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': '127.0.0.1',
