@@ -1,4 +1,4 @@
-{% extends "management/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block content %}
@@ -7,12 +7,12 @@
     <div class="px-4">
 
         <h3 class="primary-font">{{ device.get_device_type_display }}</h3>
-        {% for data in output %}
-        <p>{{ data }}</p>
-        {% endfor %}
+        <p>{{ response_output | json_script:"response_output" }}</p>
 
         
-        <p>{{ device_data.created }}</p>
+        <p id="collect-device-status">
+            {{ text }}
+        </p>
         
 
         <div class="row my-5">

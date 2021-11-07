@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'django_celery_beat',
-    #'channels',
+    'channels',
 
     # Local Apps:
     'management',
@@ -70,7 +70,9 @@ ROOT_URLCONF = 'AutoCli.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR.joinpath('templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,6 +86,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AutoCli.wsgi.application'
+ASGI_APPLICATION = 'AutoCli.asgi.application'
 
 
 # Rest api:
@@ -93,8 +96,7 @@ REST_FRAMEWORK = {
 }
 
 
-# For Websocket Support
-
+# For Websocket Support:
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',

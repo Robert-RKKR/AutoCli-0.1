@@ -56,7 +56,10 @@ class ConnectionManager:
                 output.append(dict(zip(fsm.header, row)))
 
             # Save output to dictionary:
-            self.device_data[file_name] = output[0]
+            try:
+                self.device_data[file_name] = output[0]
+            except:
+                self.device_data[file_name] = None
             key_list.append(file_name)
         
         return key_list

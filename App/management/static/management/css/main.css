@@ -246,6 +246,11 @@
 		background: var(--color_background_secondary);
 		padding: 20px;
 	}
+
+	/*   ----    SUB MENU ACTION    ----   */
+	.dropdown-menu-block {
+		display: block;
+	}
 		
 		
 		

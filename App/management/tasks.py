@@ -1,3 +1,9 @@
+# Django import:
+from asgiref.sync import async_to_sync
+
+# Channels import:
+from channels.layers import get_channel_layer
+
 # Application Import:
 from .connection.netcon import NetCon
 from .connection.restcon import RestCon
@@ -7,8 +13,40 @@ from .models import Device, DeviceData
 # Celery Import:
 from celery import shared_task
 
+# Channels variable:
+channel_layer = get_channel_layer()
 
 # Task device related:
+@shared_task(bind=True, track_started=True)
+def single_device_collect(self, device_id: int) -> bool:
+    """
+        Collect data from device.
+    """
+    # Active devices check status:
+    status = None
+
+    # Check if device_id variable is intiger:
+    if isinstance(device_id, int):
+
+        # Find Device object by ID:
+        device = Device.objects.get(id=device_id)
+
+        # Raport start of task:
+        self.update_state(state=f'Collecting data about device: {device.hostname}.')
+
+        # Run connection manager to collect all data:
+        collector = ConnectionManager(device)
+        collector.collect_data()
+
+        # Raport end of task:
+        self.update_state(state=f'Data fom device {device.hostname} was collected.')
+
+    else: # If device variable is not a intiger, raise type error:
+        raise TypeError('device variable can only be a intiger.')
+
+    async_to_sync(channel_layer.group_send)('collect', {'type': 'send_collect', 'text': 'The task was completed'})
+
+
 @shared_task(bind=True, track_started=True)
 def single_device_check(self, device_id: int) -> bool:
     """
@@ -52,28 +90,6 @@ def single_device_check(self, device_id: int) -> bool:
 
     # Return single device check status:
     return status
-    
-
-@shared_task(bind=True, track_started=True)
-def single_device_collect(self, device_id: int) -> bool:
-    """
-        Collect data from device.
-    """
-    # Active devices check status:
-    status = None
-
-    # Check if device_id variable is intiger:
-    if isinstance(device_id, int):
-
-        # Find Device object by ID:
-        device = Device.objects.get(id=device_id)
-
-        # Run connection manager to collect all data:
-        collector = ConnectionManager(device)
-        collector.collect_data()
-
-    else: # If device variable is not a intiger, raise type error:
-        raise TypeError('device variable can only be a intiger.')
 
 
 @shared_task(bind=True, track_started=True)
