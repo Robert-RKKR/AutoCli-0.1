@@ -3,6 +3,16 @@
 
 {% block content %}
 
-    
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <p>{{ response_output | json_script:"response_output" }}</p>
+
+    <p id="collect-device-status">
+        {{ text }}
+    </p>
 
 {% endblock %}

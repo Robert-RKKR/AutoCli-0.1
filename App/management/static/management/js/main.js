@@ -67,10 +67,6 @@ for(let i=0; i<toggleButton.length; i++) {
     });
 }
 
-task_status()
-
-
-
 function apiListTasks() {
     return fetch('http://127.0.0.1:8000/api/device/all').then(
         function(resp) {
@@ -96,8 +92,11 @@ function task_status(task_type) {
 
     socket.onmessage = function(event) {
         var collect = event.data;
+        console.log(collect)
         document.querySelector("#collect-device-status").innerText = collect;
     }
 
     console.log(response_output)
 }
+
+task_status()

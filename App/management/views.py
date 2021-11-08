@@ -10,6 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 
 # Application Import:
+from .tasks import single_device_check, single_device_collect
+from .forms import TestForm, AddDeviceForm
 from logger.logger import Logger
 from logger.models import LoggerData
 from .models import (
@@ -79,8 +81,6 @@ def device(request, id):
         'device': device,
     }
 
-    from .tasks import single_device_check, single_device_collect
-
     #output.append(single_device_collect.delay(device.id))
     #data['output'] = task_simple.apply_async((id,), countdown=5)
     #data['output'] = update_all.delay()
@@ -109,13 +109,49 @@ def device_add(request):
 
     # GET method:
     if request.method == 'GET':
-
+        # Form declaration:
+        form = AddDeviceForm()
+        data['form'] = form
         return render(request, 'management/device_add.html', data)
 
     # GET method:
     elif request.method == 'POST':
+        # Form declaration:
+        form = AddDeviceForm(request.POST)
+        data['form'] = form
 
+        if form.is_valid():
+            device = form.save()
+            output = single_device_collect.delay(device.id)
+            data['response_output'] = output.id
         return render(request, 'management/device_add.html', data)
+
+
+"""def device_add(request):
+
+    # Collect data to display:
+    data = {
+        'url': request.path[3:],
+        'header': _('Devices')
+    }
+
+    # GET method:
+    if request.method == 'GET':
+        # Form declaration:
+        form = TestForm()
+        data['form'] = form
+        return render(request, 'management/device_add.html', data)
+
+    # GET method:
+    elif request.method == 'POST':
+        # Form declaration:
+        form = TestForm(request.POST)
+        data['form'] = form
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            print(name)
+        return render(request, 'management/device_add.html', data)"""
 
 
 

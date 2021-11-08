@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-10 18:39+0000\n"
+"POT-Creation-Date: 2021-11-08 22:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: AutoCli/settings.py:145
+#: AutoCli/settings.py:180
 msgid "English"
 msgstr ""
 
-#: AutoCli/settings.py:146
+#: AutoCli/settings.py:181
 msgid "German"
 msgstr ""
 
-#: AutoCli/settings.py:147
+#: AutoCli/settings.py:182
 msgid "Polish"
 msgstr ""
 
@@ -34,145 +34,83 @@ msgstr ""
 msgid "admin/"
 msgstr ""
 
-#: management/admin.py:44
+#: management/admin.py:46
 #, python-format
 msgid "%d device was successfully marked as nonactive."
 msgid_plural "%d devices were successfully marked as nonactive."
 msgstr[0] ""
 msgstr[1] ""
 
-#: management/admin.py:54
+#: management/admin.py:56
 #, python-format
 msgid "%d device was successfully marked as active."
 msgid_plural "%d devices were successfully marked as active."
 msgstr[0] ""
 msgstr[1] ""
 
-#: management/models.py:22
+#: management/models.py:24
 msgid "Hexadecimal representation of colour, for example #73a6ff."
 msgstr ""
 
-#: management/models.py:24 management/models.py:25 management/models.py:112
-#: management/models.py:113
+#: management/models.py:26 management/models.py:27 management/models.py:128
+#: management/models.py:129
 msgid "This field is mandatory."
 msgstr ""
 
-#: management/models.py:26
+#: management/models.py:28
 msgid ""
 "Enter the correct colour value. It must be a 3/6 character hexadecimal "
 "number with # on begining"
 msgstr ""
 
-#: management/models.py:59
+#: management/models.py:71
 msgid "Nonactive"
 msgstr ""
 
-#: management/models.py:60
+#: management/models.py:72
 #: management/templates/management/devices_search.html:25
 msgid "Active"
 msgstr ""
 
-#: management/models.py:61
+#: management/models.py:73
 msgid "ToBin"
 msgstr "To bin"
 
-#: management/models.py:64
+#: management/models.py:76
 msgid "autodetect"
 msgstr "Auto detect"
 
-#: management/models.py:65
+#: management/models.py:77
 msgid "cisco_ios"
 msgstr "Cisco IOS"
 
-#: management/models.py:66
+#: management/models.py:78
 msgid "cisco_xr"
 msgstr "Cisco IOSXR"
 
-#: management/models.py:67
+#: management/models.py:79
 msgid "cisco_xe"
 msgstr "Cisco IOSXE"
 
-#: management/models.py:68
+#: management/models.py:80
 msgid "cisco_nxos"
 msgstr "Cisco NXOS"
 
-#: management/models.py:114
+#: management/models.py:130
 msgid "This field must be unique."
 msgstr ""
 
-#: management/models.py:116
+#: management/models.py:132
 msgid "Enter a valid IP address or hostname."
 msgstr ""
 
-#: management/templates/management/base.html:30
-#: management/templates/management/base.html:93
-msgid "Dashboard"
+#: management/templates/management/dev.html:3
+msgid "DeviceType"
+msgstr "Device type"
+
+#: management/templates/management/dev.html:6
+msgid "Credentials"
 msgstr ""
-
-#: management/templates/management/base.html:36
-msgid "Management"
-msgstr ""
-
-#: management/templates/management/base.html:39 management/views.py:32
-msgid "Devices"
-msgstr ""
-
-#: management/templates/management/base.html:41
-msgid "Groups"
-msgstr ""
-
-#: management/templates/management/base.html:42
-msgid "Colors"
-msgstr ""
-
-#: management/templates/management/base.html:43
-msgid "Icons"
-msgstr ""
-
-#: management/templates/management/base.html:49
-msgid "Automation"
-msgstr ""
-
-#: management/templates/management/base.html:53
-msgid "Templates"
-msgstr ""
-
-#: management/templates/management/base.html:54
-msgid "Policies"
-msgstr ""
-
-#: management/templates/management/base.html:59
-msgid "Articles"
-msgstr ""
-
-#: management/templates/management/base.html:63
-msgid "Administrators"
-msgstr ""
-
-#: management/templates/management/base.html:67
-#: management/templates/management/base.html:113
-msgid "Settings"
-msgstr ""
-
-#: management/templates/management/base.html:112
-msgid "Profile"
-msgstr "User profile"
-
-#: management/templates/management/base.html:114
-msgid "About"
-msgstr ""
-
-#: management/templates/management/base.html:115
-msgid "Logout"
-msgstr ""
-
-#: management/templates/management/base.html:122
-msgid "NoUser"
-msgstr "No logged"
-
-#: management/templates/management/base.html:125
-msgid "LogIn"
-msgstr "Log in"
 
 #: management/templates/management/devices_search.html:29
 msgid "ActiveSSH"
@@ -194,19 +132,79 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: management/templates/management/devices_search.html:105
-msgid "DeviceType"
-msgstr "Device type"
-
-#: management/templates/management/devices_search.html:108
-msgid "Credentials"
-msgstr ""
-
 #: management/validators.py:14
 msgid ""
 "Enter the correct colour in hexadecimal notation. This value can only "
 "contain hexadecimal numbers preceded by the # sign."
 msgstr ""
+
+#: management/views.py:29 management/views.py:108 templates/base.html:39
+msgid "Devices"
+msgstr ""
+
+#: templates/base.html:30 templates/base.html:93
+msgid "Dashboard"
+msgstr ""
+
+#: templates/base.html:36
+msgid "Management"
+msgstr ""
+
+#: templates/base.html:41
+msgid "Groups"
+msgstr ""
+
+#: templates/base.html:42
+msgid "Colors"
+msgstr ""
+
+#: templates/base.html:43
+msgid "Icons"
+msgstr ""
+
+#: templates/base.html:49
+msgid "Automation"
+msgstr ""
+
+#: templates/base.html:53
+msgid "Templates"
+msgstr ""
+
+#: templates/base.html:54
+msgid "Policies"
+msgstr ""
+
+#: templates/base.html:59
+msgid "Articles"
+msgstr ""
+
+#: templates/base.html:63
+msgid "Administrators"
+msgstr ""
+
+#: templates/base.html:67 templates/base.html:113
+msgid "Settings"
+msgstr ""
+
+#: templates/base.html:112
+msgid "Profile"
+msgstr "User profile"
+
+#: templates/base.html:114
+msgid "About"
+msgstr ""
+
+#: templates/base.html:115
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:122
+msgid "NoUser"
+msgstr "No logged"
+
+#: templates/base.html:125
+msgid "LogIn"
+msgstr "Log in"
 
 #~ msgid "Unknown"
 #~ msgstr "Unknown device"
