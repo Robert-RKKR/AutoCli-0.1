@@ -1,15 +1,15 @@
 from django.urls import path
 from . import views
 from .views import (
-    Test,
-    Testing,
+    Test, Testing,
     devices_search,
-    device,
+    device, device_add,
 )
 
 urlpatterns = [
     path('devices_search', devices_search),
     path('device/<str:id>', device),
+    path('device_add', device_add),
     path('test', Test.as_view()),
     path('testing', Testing.as_view()),
 ]

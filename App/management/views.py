@@ -99,7 +99,23 @@ def device(request, id):
     return render(request, 'management/device.html', data)
 
 
+def device_add(request):
 
+    # Collect data to display:
+    data = {
+        'url': request.path[3:],
+        'header': _('Devices')
+    }
+
+    # GET method:
+    if request.method == 'GET':
+
+        return render(request, 'management/device_add.html', data)
+
+    # GET method:
+    elif request.method == 'POST':
+
+        return render(request, 'management/device_add.html', data)
 
 
 

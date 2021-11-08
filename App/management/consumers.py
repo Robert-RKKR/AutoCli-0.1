@@ -8,8 +8,8 @@ class CollectConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add('collect', self.channel_name)
         await self.accept()
 
-    async def disconnect(self):
-        await self.channel_layer.group_discard('collect', self.channel_name)
+    """async def disconnect(self):
+        await self.channel_layer.group_discard('collect', self.channel_name)"""
 
     async def send_collect(self, event):
         text_message = event['text']

@@ -4,7 +4,7 @@ from rest_framework import serializers
 # Application Import:
 from logger.models import LoggerData
 from management.models import (
-    Device, Credential, Tag,
+    Device, Credential, Tag, SshDeviceData,
 )
 
 
@@ -52,6 +52,19 @@ class DeviceComplexPostSerializer(serializers.ModelSerializer):
             'name', 'status', 'hostname', 'device_type',
             'credential', 'ico', 'ssh_port',
             'https_port', 'certificate', 'description',
+        ]
+
+
+# Device SSH Data serializers:
+class SshDeviceDataGetSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SshDeviceData
+        fields = [
+            'id', 'device', 'created', 'version',
+            'rommon', 'hostname', 'uptime', 'reload_reason',
+            'running_image', 'config_register', 'hardware_list',
+            'serial_list', 'mac_list',  
         ]
 
 

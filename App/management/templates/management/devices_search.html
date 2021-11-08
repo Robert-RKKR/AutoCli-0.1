@@ -90,65 +90,10 @@
                                     <p class="fs-5">{{ result.hostname }}</p>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center more-button">
+                            <div class="d-flex justify-content-center more-button" id="{{ result.id }}">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
                                         <a class="nav-link dropdown-toggle dark-gray-color fw-bold">{% translate "More" %}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                                    
-                        <!-- Box body -->
-                        <div class="box-body hide row border-top-blue">
-                            <div class="col-6 d-flex justify-content-center">
-                                <p>{% translate "DeviceType" %}: {{ result.get_device_type_display }}</p>
-                            </div>
-                            <div class="col-6 d-flex justify-content-center">
-                                <p>{% translate "Credentials" %}: {{ result.credential }}</p>
-                            </div>
-                            <div class="col-6 d-flex justify-content-center">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link dropdown-toggle dark-gray-color">SW Version</a>
-                                        <ul>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-6 d-flex justify-content-center">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link dropdown-toggle dark-gray-color">SW Version</a>
-                                        <ul>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-6 d-flex justify-content-center">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link dropdown-toggle dark-gray-color">SW Version</a>
-                                        <ul>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                            <li>
-                                                <a>16.12.2t</a>
-                                            </li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </div>

@@ -8,6 +8,10 @@ urlpatterns = [
     path('device/add', views.DeviceSimpleAddAPI.as_view(), name='device_add_simple'),
     path('device/complex_add', views.DeviceComplexAddAPI.as_view(), name='device_add_complex'),
 
+    # Device SSH Data API:
+    path('device/ssh', views.SshDeviceDataAllAPI.as_view(), name='device_ssh'),
+    path('device/ssh/<int:device_id>', views.SshDeviceDataOneAPI.as_view(), name='device_ssh_one'),
+
     # Tag API:
     path('tag-device/all', views.TagDeviceAllAPI.as_view(), name='tag_device_all'),
 

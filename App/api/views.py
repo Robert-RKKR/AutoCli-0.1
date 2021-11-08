@@ -9,6 +9,7 @@ from .serializers import (
     DeviceGetSerializer,
     DeviceSimplePostSerializer,
     DeviceComplexPostSerializer,
+    SshDeviceDataGetSerializer,
     CredentialDataGetSerializer,
     LoggerDataGetSerializer,
     TagGetSerializer,
@@ -24,7 +25,7 @@ from .pagination import (
 # Models Import:
 from logger.models import LoggerData
 from management.models import (
-    Device, Credential, Tag,
+    Device, Credential, Tag, SshDeviceData,
 )
 
 # ALL Device Views:
@@ -48,6 +49,22 @@ class DeviceSimpleAddAPI(generics.CreateAPIView):
 class DeviceComplexAddAPI(generics.CreateAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceComplexPostSerializer
+
+# Device SSH Data Views:
+class SshDeviceDataAllAPI(generics.ListAPIView):
+    queryset = SshDeviceData.objects.all()
+    serializer_class = SshDeviceDataGetSerializer
+    pagination_class = SmallResultsSetPagination
+
+
+class SshDeviceDataOneAPI(generics.ListAPIView):
+    serializer_class = SshDeviceDataGetSerializer
+    pagination_class = SmallResultsSetPagination
+
+    def get_queryset(self):
+        device_id = self.kwargs['device_id']
+        output = SshDeviceData.objects.filter(device=device_id).order_by('-id')
+        return output
 
 
 # ALL Tag Views:

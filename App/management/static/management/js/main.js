@@ -13,6 +13,39 @@ toggleButton1.onclick = function () {
     activeElement1.classList.toggle("toggled");
 };
 
+// 
+fetch('http://127.0.0.1:8000/api/device/all').then( resp => {
+    if(!resp.ok) {
+        return {}
+    } else {
+        return resp.json();
+    }
+}).then( obj => {
+    console.log(obj)
+});
+
+function collectDeviceSshData(device_id) {
+    fetch('http://127.0.0.1:8000/api/device/ssh/'+device_id).then( resp => {
+        if(!resp.ok) {
+            return {}
+        } else {
+            return resp.json();
+        }
+    }).then( obj => {
+        console.log(obj)
+    });
+}
+
+var moreButtons = document.getElementsByClassName("more-button");
+
+for(let i=0; i<moreButtons.length; i++) {
+    let moreButton = moreButtons[i]
+
+    moreButton.addEventListener("click", function(event) {
+        collectDeviceSshData(moreButton.id)
+    });
+}
+
 
 // SIDEBAR SUB MENU ACTION:
 var toggleButton = document.getElementsByClassName("dropdown-action");
@@ -31,8 +64,30 @@ for(let i=0; i<toggleButton.length; i++) {
         } else {
             activeElementInside.classList.remove("dropdown-menu-block");
         }     
-    })
+    });
 }
+
+task_status()
+
+
+
+function apiListTasks() {
+    return fetch('http://127.0.0.1:8000/api/device/all').then(
+        function(resp) {
+            if(!resp.ok) {
+                alert('Wystąpił błąd! Otwórz devtools i zakładkę Sieć/Network, i poszukaj przyczyny');
+            }
+            return resp.json();
+        }
+    )
+}
+  
+apiListTasks().then(
+    function(response) {
+        console.log('Odpowiedź z serwera to:', response);
+    }
+);
+  
 
 
 function task_status(task_type) {
@@ -46,5 +101,3 @@ function task_status(task_type) {
 
     console.log(response_output)
 }
-
-task_status()
