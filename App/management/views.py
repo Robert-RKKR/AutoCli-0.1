@@ -114,7 +114,7 @@ def device_add(request):
         data['form'] = form
         return render(request, 'management/device_add.html', data)
 
-    # GET method:
+    # POST method:
     elif request.method == 'POST':
         # Form declaration:
         form = AddDeviceForm(request.POST)
@@ -125,6 +125,25 @@ def device_add(request):
             output = single_device_collect.delay(device.id)
             data['response_output'] = output.id
         return render(request, 'management/device_add.html', data)
+
+
+def logger_search(request):
+
+    # Collect data to display:
+    data = {
+        'url': request.path[3:],
+        'header': _('Logger')
+    }
+
+    # GET method:
+    if request.method == 'GET':
+
+        return render(request, 'management/logger_search.html', data)
+
+    # POST method:
+    elif request.method == 'POST':
+
+         return render(request, 'management/logger_search.html', data)
 
 
 """def device_add(request):

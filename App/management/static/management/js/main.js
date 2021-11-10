@@ -1,102 +1,62 @@
-// CHECKBOX INDETERMINATE:
-var checkboxes = document.getElementsByClassName("form-check-indeterminate");
-for (let i =0; i < checkboxes.length; i++) {
-    checkboxes[i].indeterminate = true;
-    checkboxes[i].value = "indeterminate";
-}
-
-// SIDEBAR CLOSE ACTION:
-var activeElement1 = document.getElementById("wrapper");
-var toggleButton1 = document.getElementById("menu-toggle");
-
-toggleButton1.onclick = function () {
-    activeElement1.classList.toggle("toggled");
-};
-
-// 
-fetch('http://127.0.0.1:8000/api/device/all').then( resp => {
-    if(!resp.ok) {
-        return {}
-    } else {
-        return resp.json();
-    }
-}).then( obj => {
-    console.log(obj)
+window.addEventListener("scroll", function(event) {
+    document.getElementById("showScroll").innerHTML = window.pageYOffset + "px";
 });
 
-function collectDeviceSshData(device_id) {
-    fetch('http://127.0.0.1:8000/api/device/ssh/'+device_id).then( resp => {
+function print_collected_data(data) {
+
+    // Collect Table Body:
+    let tbody = document.getElementById("logger-div-tbody");
+
+    // Fill Body Heder:
+    var logger_list = data.results;
+    for(let i=0; i<logger_list.length; i++) {
+        let log_values = Object.values(logger_list[i]);
+
+        // Create TR and add to Table Body:
+        let tr = document.createElement("tr");
+
+        log_values.forEach(function(element, index, array) {
+            if (index === 0) {
+                var row = document.createElement("th");
+                row.setAttribute("scope", "col")
+            } else {
+                var row = document.createElement("td");
+            }
+            
+            row.innerText = element;
+            tr.appendChild(row);
+        });
+
+        tbody.appendChild(tr);
+    }
+
+}
+
+function collect_data(request) {
+    
+    fetch(request).then( resp => {
         if(!resp.ok) {
             return {}
         } else {
             return resp.json();
         }
-    }).then( obj => {
-        console.log(obj)
+    }).then( rest_object => {
+
+        //console.log(rest_object.count);
+        //console.log(rest_object.next);
+        //console.log(rest_object.previous); ?page=2
+
+        print_collected_data(rest_object)
+
     });
+
 }
 
-var moreButtons = document.getElementsByClassName("more-button");
+var api_request_url = 'http://127.0.0.1:8000/api/loggerdata/last'
 
-for(let i=0; i<moreButtons.length; i++) {
-    let moreButton = moreButtons[i]
+collect_data(api_request_url)
+collect_data(api_request_url)
+collect_data(api_request_url)
+collect_data(api_request_url)
 
-    moreButton.addEventListener("click", function(event) {
-        collectDeviceSshData(moreButton.id)
-    });
-}
-
-
-// SIDEBAR SUB MENU ACTION:
-var toggleButton = document.getElementsByClassName("dropdown-action");
-
-for(let i=0; i<toggleButton.length; i++) {
-    let toggleButtonThis = toggleButton[i]
-    let activeElement = toggleButton[i].nextElementSibling
-
-    toggleButtonThis.addEventListener("click", function(event) {
-        for(let i=0; i<toggleButton.length; i++) {
-            let activeElementInside = toggleButton[i].nextElementSibling
-            activeElementInside.classList.remove("dropdown-menu-block");
-        }
-        if(activeElement.classList.contains("dropdown-menu-block") === false) {
-            activeElement.classList.add("dropdown-menu-block");
-        } else {
-            activeElementInside.classList.remove("dropdown-menu-block");
-        }     
-    });
-}
-
-function apiListTasks() {
-    return fetch('http://127.0.0.1:8000/api/device/all').then(
-        function(resp) {
-            if(!resp.ok) {
-                alert('Wystąpił błąd! Otwórz devtools i zakładkę Sieć/Network, i poszukaj przyczyny');
-            }
-            return resp.json();
-        }
-    )
-}
-  
-apiListTasks().then(
-    function(response) {
-        console.log('Odpowiedź z serwera to:', response);
-    }
-);
-  
-
-
-function task_status(task_type) {
-    const response_output = JSON.parse(document.getElementById("response_output").textContent);
-    var socket = new WebSocket("ws://127.0.0.1:8000/ws/collect/");
-
-    socket.onmessage = function(event) {
-        var collect = event.data;
-        console.log(collect)
-        document.querySelector("#collect-device-status").innerText = collect;
-    }
-
-    console.log(response_output)
-}
-
-task_status()
+console.log(api_request_url)

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container-fluid px-4 grid-container primary-font">
+
+        <!-- Search menu -->
+        <div>
+
+            <div id="showScroll"></div>
+
+            <form action="#" method="POST">{% csrf_token %}
+
+                <!-- Search head -->
+                <div class="my-2 shadow-sm d-flex" id="search-head">
+                    <input type="search" name="name">
+                    <button type="submit" value="submit">Search</button>
+                </div>
+
+                <!-- Search body -->					
+                <div class="my-2 box-bg shadow-sm p-3">
+                    <div class="row justify-content-around">
+                        <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center form-switch">
+                            <input class="shadow-sm form-check-input" type="checkbox" name="active" id="page-content-search-form-1" checked>
+                            <label class="form-check-label" for="page-content-search-form-1">{% translate "Active" %}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center form-check">
+                            <input class="shadow-sm form-check-input form-check-indeterminate" type="checkbox" name="activessh" id="page-content-search-form-2" checked>
+                            <label class="form-check-label" for="page-content-search-form-2">{% translate "ActiveSSH" %}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center form-check">
+                            <input class="shadow-sm form-check-input form-check-indeterminate" type="checkbox" name="activehttps" id="page-content-search-form-3" checked>
+                            <label class="form-check-label" for="page-content-search-form-3">{% translate "ActiveHTTPS" %}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center form-check">
+                            <input class="shadow-sm form-check-input form-check-indeterminate" type="checkbox" name="activeping" id="page-content-search-form-4" checked>
+                            <label class="form-check-label" for="page-content-search-form-4">{% translate "ActivePING" %}</label>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center form-check">
+                            <input class="shadow-sm form-check-input form-check-indeterminate" type="checkbox" name="certificate" id="page-content-search-form-5" checked>
+                            <label class="form-check-label" for="page-content-search-form-5">{% translate "Certificate" %}</label>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="my-4">
+                <table class="table grid-bg rounded shadow-sm table-hover table-blue">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">timestamp</th>
+                            <th scope="col">process</th>
+                            <th scope="col">application</th>
+                            <th scope="col">module</th>
+                            <th scope="col">severity</th>
+                            <th scope="col">message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logger-div-tbody"></tbody>
+                </table>
+            </div>
+
+        </div>
+        
+    </div>
+
+{% endblock %}

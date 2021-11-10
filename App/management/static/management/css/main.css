@@ -266,6 +266,10 @@
 
 	/*   ----     TABLE     ----   */
 
+	.table-blue, .table-green, .table-red, .table-yellow, .table-gray {
+		background: var(--color_background_grid);
+	}
+
 
 		/*   ----     TABLE BLUE     ----   */
 		.table-blue thead {

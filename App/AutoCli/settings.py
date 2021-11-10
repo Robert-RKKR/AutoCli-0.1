@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'channels',
 
     # Local Apps:
+    'administrators',
     'management',
     'automation',
     'logger',
@@ -185,3 +186,6 @@ LANGUAGES = (
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
+
+# Users models:
+#AUTH_USER_MODEL = 'administrators.Administrator'

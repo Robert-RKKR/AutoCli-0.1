@@ -4,10 +4,12 @@ from .views import (
     Test, Testing,
     devices_search,
     device, device_add,
+    logger_search,
 )
 
 urlpatterns = [
     path('devices_search', devices_search),
+    path('logger_search', logger_search),
     path('device/<str:id>', device),
     path('device_add', device_add),
     path('test', Test.as_view()),
