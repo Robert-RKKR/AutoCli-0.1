@@ -200,9 +200,6 @@ class SshDeviceData(models.Model):
     # Creation data:
     created = models.DateTimeField(auto_now_add=True)
 
-    # Basic device information:
-    
-
     # Show version output:
     version = models.CharField(max_length=64, blank=True, null=True)
     rommon = models.CharField(max_length=64, blank=True, null=True)
@@ -214,3 +211,41 @@ class SshDeviceData(models.Model):
     hardware_list = models.JSONField(blank=True, null=True)
     serial_list = models.JSONField(blank=True, null=True)
     mac_list = models.JSONField(blank=True, null=True)
+
+
+class TestDevice(models.Model):
+    
+    # Creation and status data:
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    # Device data:
+    name = models.CharField(max_length=32, blank=False, unique=True)
+    hostname = models.CharField(
+        max_length=64,
+        blank=False,
+        unique=True,
+        error_messages={
+            'null': _('This field is mandatory.'),
+            'blank': _('This field is mandatory.'),
+            'unique': _('This field must be unique.'),
+        },
+        help_text=_('Enter a valid IP address or hostname.'),
+    )
+
+class TestSshDevice(TestDevice):
+    DEVICE_TYPE = (
+        (0, _('autodetect')),
+        (1, _('cisco_ios')),
+        (2, _('cisco_xr')),
+        (3, _('cisco_xe')),
+        (4, _('cisco_nxos')),
+    )
+    device_type = models.IntegerField(choices=DEVICE_TYPE, default=0)
+    ssh_status = models.BooleanField(default=False)
+    ssh_port = models.IntegerField(default=22)
+
+
+class TestHttpsDevice(TestDevice):
+    https_status = models.BooleanField(default=False)
+    https_port = models.IntegerField(default=443)

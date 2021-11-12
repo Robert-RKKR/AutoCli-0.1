@@ -1,6 +1,9 @@
 # Django Import:
 from django.db import models
 
+# Celery Import:
+from django_celery_beat.models import PeriodicTask, PeriodicTasks
+
 # Applications Import:
 from management.models import Device
 

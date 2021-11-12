@@ -1,4 +1,5 @@
 # Django Import:
+from os import name
 from django.contrib import admin, messages
 from django.utils.translation import ngettext
 
@@ -6,7 +7,12 @@ from django.utils.translation import ngettext
 from .models import (
     TagDeviceRelation, Credential,
     Tag, Device, DeviceData, SshDeviceData,
+    TestDevice, TestSshDevice, TestHttpsDevice,
 )
+
+admin.site.register(TestDevice)
+admin.site.register(TestSshDevice)
+admin.site.register(TestHttpsDevice)
 
 # Admin classes:
 @admin.register(Device)
