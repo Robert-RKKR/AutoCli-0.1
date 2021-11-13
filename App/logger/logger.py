@@ -81,6 +81,21 @@ class Logger():
         """
         return self.__log(ERROR, message, module, additional_data)
 
+    def critical(self, message: str, module: str = None, additional_data: dict = False) -> Tuple:
+        """
+            Create a new log based on the following data:
+
+                Method attributes:
+                -----------------
+                message: string
+                    Logging message string value. 
+                module: string
+                    Module or function name.
+                additional_data: dict
+                    Optional data in dict format, added to AdditionalData models.
+        """
+        return self.__log(CRITICAL, message, module, additional_data)
+
     def __log(self, severity, message: str, module: str, additional_data: dict) -> Tuple:
         """ Create new log in Database """
         new_log = None
