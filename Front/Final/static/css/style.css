@@ -1,0 +1,44 @@
+:root {
+    
+    /* Colors */
+		
+		/* Main colors */
+        --color_page_left_one: #677acf;
+        --color_page_left_two: #7386d5;
+        --color_page_top: #8cd3aa;
+		--color_page_background: #e1eaeb;
+		--color_box_background: #f1e8e8;
+		
+        /* Main font colors */
+        --color_font_white: #f1e8e8;
+        --color_font_gray: #6a6464;
+		--color_font_gray_dark: #545353;
+		
+		/* Light colors */
+        --color_light_blue: #d8eaf9;
+        --color_light_green: #d9f3e6;
+        --color_light_yellow: #fcf5e6;
+        --color_light_gray: #acb7d0;
+        --color_light_red: #fbe6f3;
+
+        /* Strong colors */
+        --color_strong_blue: #73a6ff;
+        --color_strong_green: #8cd3aa;
+        --color_strong_yellow: #f5cd7f;
+        --color_strong_gray: #5a769a;
+        --color_strong_red: #f27e93;
+
+    /* Dimensions */
+	--page_distance_top: 8vh;
+	--page_distance_bottom: 92vh;
+    --margin_padding_full: 14px;
+    --margin_padding_half: 7px;
+
+
+	--sidebar: 250px;
+    --page_break: 8px;
+	--border: 2px;
+	--page_padding: 15px;
+	--model_padding: 7px;
+
+}

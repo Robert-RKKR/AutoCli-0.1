@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic.list import ListView
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User, Group
 from django.utils.translation import gettext_lazy as _
 
@@ -70,9 +70,9 @@ def devices_search(request):
 
 
 #@login_required(login_url='/management/devices_search')
-def device(request, id):
+def device(request, pk):
     # Collect object:
-    device = Device.objects.get(id=id)
+    device = get_object_or_404(Device, pk=pk)
 
     # Collect data to display:
     data = {
@@ -88,12 +88,12 @@ def device(request, id):
     #output.append(single_device_collect(device.id))
     
     #output.append(single_device_check.delay(device.id))
-    output = single_device_collect.delay(device.id)
+    output = single_device_collect.delay(device.pk)
     data['response_output'] = output.id
 
 
     #data['device_data'] = DeviceData.objects.filter(device=device).latest('created')
-    data['logs'] = LoggerData.objects.filter(module=device.hostname).order_by('-id')[:10]
+    data['logs'] = LoggerData.objects.filter(module=device.hostname).order_by('-pk')[:10]
     
     # GET method:
     return render(request, 'management/device.html', data)

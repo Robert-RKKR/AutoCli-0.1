@@ -1,0 +1,93 @@
+ /*   -----------------------   */
+/*   ----  LOGIN PAGE   ----   */
+.center-page {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+#login-page .login-form {
+	display: flex;
+	flex-direction: column;
+	background: var(--color_background_grid);
+}
+
+#login-page .login-top {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--color_strong_blue);
+	padding: 10px 20px;
+}
+
+#login-page .login-top svg {
+	fill: var(--color_background_grid);
+	height: 30px;
+	width: 30px;
+}
+
+#login-page .login-top span {
+	color: var(--color_background_grid);
+}
+
+#login-page .login-bottom  {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+}
+
+#login-page .login-bottom input {
+	background: var(--color_background_page);
+	margin: 0px 20px 10px 20px;
+	padding: 10px 30px;
+	border: none;
+}
+
+#login-page .login-bottom button {
+	background: var(--color_strong_green);
+	margin: 10px 20px 0px 20px;
+	cursor: pointer;
+	padding: 10px;
+	border: none;
+}
+
+
+
+
+ /*   --------------------------   */
+/*   -----   MOBILE   -----   */
+
+
+	/*   -----   MEDIA >= 960px   -----   */
+	@media only screen and (min-width: 960px) {
+
+
+
+	}
+
+
+	/*   -----   MEDIA >= 1300px   -----   */
+	@media only screen and (min-width: 1300px) {
+
+
+
+	}
+
+	/*   -----   MEDIA >= 1800px   -----   */
+	@media only screen and (min-width: 1800px) {
+
+
+
+	}
+
+
+	/*   -----   MEDIA >= 2200px   -----   */
+	@media only screen and (min-width: 2200px) {
+
+
+
+	}
