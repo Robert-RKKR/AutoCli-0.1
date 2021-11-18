@@ -24,6 +24,8 @@
         padding-right: 30px;
     }
 
+    
+
 
      /*   ---------------------------   */
     /*   ----     MODEL GRID     ----   */
@@ -47,7 +49,7 @@
         }
 
         .model-subitem {
-            padding: var(--box_padding_full);
+            padding: var(--box_padding_full_and_half);
             flex-direction: column;
         }
 
@@ -88,8 +90,11 @@
             }
 
 
-     /*   ---------------------------   */
+
+
+
+    /*   ---------------------------   */
     /*   ----     OBJECT GRID     ----   */
 
 
-/*   -----   PAGE TOP   -----   */
+        /*   -----   PAGE TOP   -----   */
