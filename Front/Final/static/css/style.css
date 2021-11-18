@@ -1,44 +1,234 @@
-:root {
-    
-    /* Colors */
-		
-		/* Main colors */
-        --color_page_left_one: #677acf;
-        --color_page_left_two: #7386d5;
-        --color_page_top: #8cd3aa;
-		--color_page_background: #e1eaeb;
-		--color_box_background: #f1e8e8;
-		
-        /* Main font colors */
-        --color_font_white: #f1e8e8;
-        --color_font_gray: #6a6464;
-		--color_font_gray_dark: #545353;
-		
-		/* Light colors */
-        --color_light_blue: #d8eaf9;
-        --color_light_green: #d9f3e6;
-        --color_light_yellow: #fcf5e6;
-        --color_light_gray: #acb7d0;
-        --color_light_red: #fbe6f3;
+ /*   ------------------------------------   */
+/*   ----     MAIN PAGE SETTINGS     ----   */
+body {
+    background: var(--color_background_page);
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
 
-        /* Strong colors */
-        --color_strong_blue: #73a6ff;
-        --color_strong_green: #8cd3aa;
-        --color_strong_yellow: #f5cd7f;
-        --color_strong_gray: #5a769a;
-        --color_strong_red: #f27e93;
-
-    /* Dimensions */
-	--page_distance_top: 8vh;
-	--page_distance_bottom: 92vh;
-    --margin_padding_full: 14px;
-    --margin_padding_half: 7px;
-
-
-	--sidebar: 250px;
-    --page_break: 8px;
-	--border: 2px;
-	--page_padding: 15px;
-	--model_padding: 7px;
-
+    color: var(--color_font_gray_dark);
+    font-family: 'Alegreya Sans SC', sans-serif;
+    text-decoration: none;
 }
+
+
+    /*   -----   PAGE SCROLL   -----   */
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color_strong_blue);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color_page_left_two);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color_page_left_two);
+    }
+
+
+    /*   -----   PAGE LEFT   -----   */
+    #page-left {
+        background: var(--color_page_left_two);
+        width: var(--page_left);
+        color: var(--color_font_white);
+    }
+
+    #page-header {
+        background: var(--color_page_left_one);
+        height: var(--page_distance_top);
+    }
+
+
+    /*   -----   PAGE RIGHT   -----   */
+    #page-right {
+        width: 100%;
+    }
+
+
+        /*   -----   PAGE TOP   -----   */
+        #page-top {
+            background: var(--color_page_top);
+            height: var(--page_distance_top);
+        }
+
+
+        /*   -----   PAGE BOTTOM   -----   */
+        #page-bottom {
+            height: var(--page_distance_bottom);
+            overflow-y: scroll;
+        }
+
+
+
+
+
+
+ /*   ---------------------------   */
+/*   ----     PAGE LEFT     ----   */
+#page-left {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#page-left svg, img {
+    fill: var(--color_font_white);
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+}
+
+#page-left a {
+    color: var(--color_font_white);
+}
+
+
+    /*   -----   PAGE LEFT MENU   -----   */
+
+
+        /*   -----   MAIN PAGE HEADER   -----   */
+        #page-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #page-header h2 {
+            font-size: 1.8em;
+        }
+
+        #page-header svg {
+            height: 80%;
+            width: 20%;
+            max-width: 50px;
+            margin: 0px 10px 0px 10px;
+        }
+
+
+        /*   -----   MAIN MENU   -----   */
+        .menu {
+            margin-top: 20px;
+        }
+
+        .menu-link, .submenu-link {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 1em;
+        }
+
+        .menu-link:hover, .submenu-link:hover {
+            background: var(--color_page_left_one);
+        }
+
+        .menu-link {
+            padding: 15px 10px 15px 30px;
+        }
+
+        .submenu-link {
+            padding: 15px 10px 15px 40px;
+        }
+
+        .menu-svg {
+            margin-right: 10px;
+        }
+
+        /*   -----   ACTIVE MENU   -----   */
+        .menu-active {
+            background: var(--color_page_left_one);
+        }
+
+        .menu-active a:hover {
+            background: var(--color_page_left_two);
+        }
+
+
+    /*   -----   LANGUAGE   -----   */
+    #language {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background: var(--color_page_left_one);
+    }
+
+    #language a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #language a:hover {
+		background: var(--color_page_left_two);
+	}
+
+
+
+
+
+
+ /*   ----------------------------   */
+/*   ----     PAGE RIGHT     ----   */
+
+
+    /*   -----   PAGE TOP   -----   */
+    #page-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 30px;
+    }
+
+    #sidebar-close {
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px;
+        height: 35px;
+        width: 35px;
+    }
+
+    #sidebar-close:hover {
+        background: var(--color_light_green);
+    }
+
+    #user-menu img {
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 10px;
+        height: 45px;
+        width: 45px;
+    }
+
+    #user-menu img:hover {
+        background: var(--color_light_green);
+    }
+
+
+    /*   -----   PAGE BOTTOM   -----   */
+    #page-bottom {
+        box-sizing: border-box;
+        background: var(--color_page_background);
+        padding: var(--box_padding_full_and_half) var(--box_padding_full);
+    }
+
+
+    /*   -----   PAGE CONTENT   -----   */
+    #page-content > div {
+        margin-bottom: var(--box_padding_full);
+    }
+
+    /*   -----   PAGE FOOTER   -----   */
+    #page-footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: var(--box_padding_full_and_half);
+        margin-bottom: 0px;
+    }

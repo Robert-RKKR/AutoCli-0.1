@@ -1,0 +1,95 @@
+ /*   -------------------------   */
+/*   ----     CONTENT     ----   */
+
+
+    /*   -----   MODEL TOOLS   -----   */
+    #model-panel {
+        justify-content: space-between;
+    }
+
+    #model-panel .action-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+
+    /*   -----   MODEL SEARCH   -----   */
+    #model-search input {
+        width: 100%;
+    }
+
+    #model-search div {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+
+     /*   ---------------------------   */
+    /*   ----     MODEL GRID     ----   */
+    #model-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+
+        /*   -----   ITEM   -----   */
+        .model-item {
+            padding-left: var(--box_padding_half);
+            padding-right: var(--box_padding_half);
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .model-item img {
+            height: 65px;
+            width: 65px;
+        }
+
+        .model-subitem {
+            padding: var(--box_padding_full);
+            flex-direction: column;
+        }
+
+            /*   -----   ITEM HEADER   -----   */
+            .model-item-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: var(--box_padding_full);
+            }
+
+            .model-item-header > div {
+                margin-left: var(--box_padding_full);
+            }
+
+            .model-item-header a {
+                font-size: 1.2em;
+                color: var(--color_strong_blue);
+            }
+
+            /*   -----   ITEM BODY   -----   */
+            .model-item-body {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                border-top: var(--color_light_gray) solid 1px;
+                padding-top: var(--box_padding_full);
+            }
+
+            .model-item-body table {
+                width: 100%;
+            }
+
+            .model-item-body table th, td {
+                padding: 3px;
+            }
+
+
+     /*   ---------------------------   */
+    /*   ----     OBJECT GRID     ----   */
+
+
+/*   -----   PAGE TOP   -----   */

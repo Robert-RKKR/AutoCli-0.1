@@ -1,0 +1,46 @@
+ /*   --------------------------   */
+/*   -----   MOBILE   -----   */
+
+
+    /*   -----   MEDIA >= 960px   -----   */
+    @media only screen and (min-width: 960px) {
+
+        .model-item {
+            width: 50%;
+        }
+
+        #page-left {
+            display: flex;
+        }
+
+    }
+
+
+    /*   -----   MEDIA >= 1300px   -----   */
+    @media only screen and (min-width: 1300px) {
+
+        .model-item {
+            width: 33.33333333%;
+        }
+
+}
+
+
+    /*   -----   MEDIA >= 1800px   -----   */
+    @media only screen and (min-width: 1800px) {
+
+        .model-item {
+            width: 25%;
+        }
+
+}
+
+
+    /*   -----   MEDIA >= 2200px   -----   */
+    @media only screen and (min-width: 2200px) {
+
+        .model-item {
+            width: 20%;
+        }
+
+}
